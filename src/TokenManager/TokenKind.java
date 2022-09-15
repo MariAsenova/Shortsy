@@ -1,4 +1,8 @@
+package TokenManager;
+
 public enum TokenKind {
+    IDENTIFIER,
+    OPERATOR,
     ELSE("el"),
     IF("if"),
     COMMA( "," ),
