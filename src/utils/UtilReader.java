@@ -4,7 +4,7 @@
  * 22.09.2006 Original version (adapted from Watt&Brown)
  */
  
-package Utils;
+package utils;
 
 
 import java.io.*;
