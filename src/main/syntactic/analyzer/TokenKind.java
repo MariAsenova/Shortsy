@@ -1,4 +1,4 @@
-package main;
+package main.syntactic.analyzer;
 
 public enum TokenKind {
     ELSE("el"),

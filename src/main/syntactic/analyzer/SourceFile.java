@@ -4,13 +4,13 @@
  * 22.09.2006 Original version (adapted from Watt&Brown)
  */
  
-package utils;
+package main.syntactic.analyzer;
 
 
 import java.io.*;
 
 
-public class UtilReader
+public class SourceFile
 {
 	public static final char EOL = '\n';
 	public static final char EOT = 0;
@@ -19,7 +19,7 @@ public class UtilReader
 	private FileInputStream source;
 	
 	
-	public UtilReader( String sourceFileName )
+	public SourceFile(String sourceFileName )
 	{
 		try {
 			source = new FileInputStream( sourceFileName );
