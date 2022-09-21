@@ -1,6 +1,7 @@
 package main.syntactic.analyzer;
 
 public enum TokenKind {
+    IDENTIFIER,
     OPERATOR,
     ELSE("el"),
     IF("if"),
@@ -21,7 +22,9 @@ public enum TokenKind {
     METHOD_DECLARATION("func"),
     RETURN("ret"),
     EQUALS("="),
-    ASSIGNMENT_OPERATOR("==");
+    ASSIGNMENT_OPERATOR("=="),
+    EOT,
+    ERROR;
 
 
 
