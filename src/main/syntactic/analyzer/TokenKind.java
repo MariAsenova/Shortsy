@@ -1,3 +1,5 @@
+package main;
+
 public enum TokenKind {
     ELSE("el"),
     IF("if"),
