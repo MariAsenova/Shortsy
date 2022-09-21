@@ -1,7 +1,6 @@
 package main.syntactic.analyzer;
 
 public enum TokenKind {
-    IDENTIFIER,
     OPERATOR,
     ELSE("el"),
     IF("if"),
