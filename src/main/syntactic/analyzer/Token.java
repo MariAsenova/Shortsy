@@ -1,6 +1,6 @@
-package TokenManager;
+package main.syntactic.analyzer;
 
-import static TokenManager.TokenKind.*;
+import static main.syntactic.analyzer.TokenKind.*;
 
 public class Token {
 
@@ -75,7 +75,6 @@ public class Token {
     private static final String[] MULOPS =
             {
                     "*",
-                    "/",
-                    "%",
+                    "/"
             };
 }
