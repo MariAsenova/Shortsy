@@ -2,36 +2,52 @@ package TokenManager;
 
 public enum TokenKind {
     IDENTIFIER,
+    INTEGERLITERAL,
     OPERATOR,
-    ELSE("el"),
-    IF("if"),
-    COMMA( "," ),
-    SEMICOLON( ";" ),
-    LEFT_PARENTHESIS( "(" ),
-    RIGHT_PARENTHESIS( ")" ),
-    LEFT_BRACE("{"),
-    RIGHT_BRACE("}"),
-    WHILE("whl"),
-    DO("do"),
-    INPUT("in"),
-    OUTPUT("out"),
+    DO( "do" ),
+    ELSE( "el" ),
+    FUNC( "func" ),
+    IF( "if" ),
+    RETURN( "ret" ),
+    SAY( "say" ),
+    THEN( "then" ),
+    VAR( "var" ),
+    WHILE( "whl" ),
+    VOID("voi"),
     INTEGER("i"),
     BOOLEAN("b"),
-    VOID("voi"),
-    TYPE_IDENTIFIER(">"),
-    METHOD_DECLARATION("func"),
-    RETURN("ret"),
-    EQUALS("="),
-    ASSIGNMENT_OPERATOR("==");
+    INPUT("in"),
+    OUTPUT("out"),
+    DECLARE(">"),
+    ASSIGNMENT_OPERATOR("="),
 
+    COMMA( "," ),
+    SEMICOLON( ";" ),
+    LEFTPARAN( "(" ),
+    RIGHTPARAN( ")" ),
+    RIGHTBRACES("{"),
+    LEFTBRACES("}"),
+
+
+    EOT,
+
+    ERROR;
 
 
     private String spelling = null;
-    private TokenKind() {
-    }
-    private TokenKind(String spelling){
 
+
+    private TokenKind()
+    {
     }
+
+
+    private TokenKind( String spelling )
+    {
+        this.spelling = spelling;
+    }
+
+
     public String getSpelling()
     {
         return spelling;

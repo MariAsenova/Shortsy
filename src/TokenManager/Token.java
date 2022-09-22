@@ -1,70 +1,81 @@
 package TokenManager;
 
+import static TokenManager.TokenKind.*;
+
 public class Token {
+
     public TokenKind kind;
     public String spelling;
 
-    public Token(TokenKind kind, String spelling){
-        this.kind=kind;
-        this.spelling=spelling;
-        if( kind == TokenKind.IDENTIFIER )
 
+    public Token( TokenKind kind, String spelling )
+    {
+        this.kind = kind;
+        this.spelling = spelling;
+
+        if( kind == IDENTIFIER )
             for( TokenKind tk: KEYWORDS )
                 if( spelling.equals( tk.getSpelling() ) ) {
                     this.kind = tk;
                     break;
                 }
     }
-    private static final TokenKind[] KEYWORDS = { TokenKind.INPUT, TokenKind.OUTPUT, TokenKind.DO, TokenKind.ELSE, TokenKind.IF, TokenKind.RETURN, TokenKind.EQUALS, TokenKind.WHILE };
+
+
     public boolean isAssignOperator()
-    {//since our assignment might not always use = for assignment maybe this has to be different
-        if( kind == TokenKind.OPERATOR )
-            return containsOperator( spelling, ASSIGNMENT_OPERATORS);
+    {
+        if( kind == OPERATOR )
+            return containsOperator( spelling, ASSIGNOPS );
         else
             return false;
     }
 
-    public boolean isAddMinusOperator()
+    public boolean isAddOperator()
     {
-        if( kind == TokenKind.OPERATOR )
-            return containsOperator( spelling, ADD_MINUS_OPERATORS);
+        if( kind == OPERATOR )
+            return containsOperator( spelling, ADDOPS );
         else
             return false;
     }
 
-    public boolean isMultiplyDivideOperator()
+    public boolean isMulOperator()
     {
-        if( kind == TokenKind.OPERATOR )
-            return containsOperator( spelling, MULTIPLY_DIVIDE_OPERATORS);
+        if( kind == OPERATOR )
+            return containsOperator( spelling, MULOPS );
         else
             return false;
     }
 
 
-    private boolean containsOperator( String spelling, String OPS[] )
+    private boolean containsOperator(String spelling, String[] OPS)
     {
-        for( int i = 0; i < OPS.length; ++i )
-            if( spelling.equals( OPS[i] ) )
+        for (String op : OPS)
+            if (spelling.equals(op))
                 return true;
 
         return false;
     }
-    private static final String ASSIGNMENT_OPERATORS[] =
+
+    private static final TokenKind[] KEYWORDS = { DECLARE, DO, ELSE,  FUNC, IF,  RETURN, SAY, THEN, VAR, WHILE,VOID,INTEGER,BOOLEAN,INPUT,OUTPUT };
+
+
+    private static final String[] ASSIGNOPS =
             {
-                    String.valueOf(TokenKind.ASSIGNMENT_OPERATOR),
+                    ":=",
             };
 
 
-    private static final String ADD_MINUS_OPERATORS[] =
+    private static final String[] ADDOPS =
             {
                     "+",
                     "-",
             };
 
 
-    private static final String MULTIPLY_DIVIDE_OPERATORS[] =
+    private static final String[] MULOPS =
             {
                     "*",
                     "/",
+                    "%",
             };
 }
