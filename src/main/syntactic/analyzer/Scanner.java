@@ -117,7 +117,7 @@ public class Scanner {
     }
 
     // TODO add a scna method to return Token when available
-    /*
+
     public Token scan()
     {
         while( currentChar == '#' || currentChar == '\n' ||
@@ -130,5 +130,5 @@ public class Scanner {
 
         return new Token( kind, new String( currentSpelling ) );
     }
-     */
+
 }
