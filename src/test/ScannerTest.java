@@ -9,7 +9,7 @@ public class ScannerTest {
         SourceFile sourceFile = new SourceFile("C:/Users/Pál Jámbor/Desktop/example.txt");
         Scanner scanner = new Scanner(sourceFile);
 
-        System.out.println(scanner.scan());
+        System.out.println(scanner.scan().kind);
 
     }
 }

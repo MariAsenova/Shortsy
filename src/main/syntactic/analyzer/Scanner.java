@@ -116,7 +116,7 @@ public class Scanner {
         }
     }
 
-    // TODO add a scna method to return Token when available
+
 
     public Token scan()
     {
