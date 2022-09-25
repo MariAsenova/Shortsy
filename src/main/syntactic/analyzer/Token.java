@@ -61,7 +61,7 @@ public class Token {
 
     private static final String[] ASSIGNOPS =
             {
-                    ":=",
+                    "=",
             };
 
 

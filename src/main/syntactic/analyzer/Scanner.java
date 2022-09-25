@@ -27,6 +27,9 @@ public class Scanner {
     private boolean isDigit(char c) {
         return (c >= '0' && c <= '9');
     }
+    private boolean isBoolean(char c){
+        return(c=='t'||c=='f');
+    }
 
     private void scanSeparator() {
         switch (currentChar) {
@@ -59,14 +62,22 @@ public class Scanner {
         Character currentChar = curCharacter;
         Character nextChar = nextCharacter;
 
-        return (currentChar.equals(boolChar) || currentChar.equals(intChar) && nextChar.equals('>'));
+        return ((currentChar.equals(boolChar) && nextChar.equals('>'))|| (currentChar.equals(intChar) && nextChar.equals('>')));
     }
 
     private TokenKind scanToken() {
-        if (isIdentifier(currentChar, sourceFile.getSource())) {
+        if(isBoolean(currentChar)){
             takeIt();
-            return TokenKind.IDENTIFIER;
+            while (isBoolean(currentChar)) takeIt();
 
+            return TokenKind.BOOLEAN;
+        }
+        else if( isLetter( currentChar ) ) {
+            takeIt();
+            while( isLetter( currentChar ) || isDigit( currentChar ) )
+                takeIt();
+
+            return TokenKind.IDENTIFIER;
         } else if (isDigit(currentChar)) {
             takeIt();
             while (isDigit(currentChar)) takeIt();
@@ -74,12 +85,12 @@ public class Scanner {
             return TokenKind.INTEGER;
 
         }
+
         switch (currentChar) {
             case '+':
             case '-':
             case '*':
             case '/':
-            case '%':
                 takeIt();
                 return TokenKind.OPERATOR;
 
@@ -106,6 +117,12 @@ public class Scanner {
             case '}':
                 takeIt();
                 return TokenKind.RIGHTBRACES;
+            case '>':
+                takeIt();
+                return TokenKind.DECLARE;
+            case '=':
+                takeIt();
+                return TokenKind.ASSIGNMENT_OPERATOR;
 
             case SourceFile.EOT:
                 return TokenKind.EOT;
