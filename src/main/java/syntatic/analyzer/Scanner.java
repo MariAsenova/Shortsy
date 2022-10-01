@@ -1,4 +1,4 @@
-package main.syntactic.analyzer;
+package syntatic.analyzer;
 
 public class Scanner {
     private SourceFile sourceFile;
@@ -147,5 +147,4 @@ public class Scanner {
 
         return new Token( kind, new String( currentSpelling ) );
     }
-
 }

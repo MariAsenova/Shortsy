@@ -1,4 +1,4 @@
-package main.syntactic.analyzer;
+package syntatic.analyzer;
 
 public enum TokenKind {
     IDENTIFIER,
@@ -52,5 +52,4 @@ public enum TokenKind {
     {
         return spelling;
     }
-
 }

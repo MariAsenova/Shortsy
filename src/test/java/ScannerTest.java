@@ -1,13 +1,14 @@
-package test;
-
-import main.syntactic.analyzer.Scanner;
-import main.syntactic.analyzer.SourceFile;
-import main.syntactic.analyzer.Token;
-import main.syntactic.analyzer.TokenKind;
+import syntatic.analyzer.Scanner;
+import syntatic.analyzer.SourceFile;
+import syntatic.analyzer.Token;
+import syntatic.analyzer.TokenKind;
 
 import javax.swing.*;
 
 public class ScannerTest {
+
+    // TODO make into a class with unit tests instead
+    // import .txt files for testing into C:\git\shortsy-compiler\src\test\resources instead of local machine
     private static final String EXAMPLES_DIR = "C:/Users/Pál Jámbor/Desktop/example.txt";
 
 
