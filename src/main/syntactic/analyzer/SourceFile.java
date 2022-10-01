@@ -1,5 +1,4 @@
-package main.syntactic.analyzer;
-
+package syntactic.analyzer;
 
 import java.io.*;
 

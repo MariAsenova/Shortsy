@@ -1,6 +1,6 @@
-package main.syntactic.analyzer;
+package syntactic.analyzer;
 
-import static main.syntactic.analyzer.TokenKind.*;
+import static syntactic.analyzer.TokenKind.*;
 
 public class Token {
 

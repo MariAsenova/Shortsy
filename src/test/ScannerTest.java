@@ -1,10 +1,3 @@
-package test;
-
-import main.syntactic.analyzer.Scanner;
-import main.syntactic.analyzer.SourceFile;
-import main.syntactic.analyzer.Token;
-import main.syntactic.analyzer.TokenKind;
-
 import javax.swing.*;
 
 public class ScannerTest {

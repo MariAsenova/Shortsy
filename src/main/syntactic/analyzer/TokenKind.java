@@ -1,4 +1,4 @@
-package main.syntactic.analyzer;
+package syntactic.analyzer;
 
 public enum TokenKind {
     IDENTIFIER,
