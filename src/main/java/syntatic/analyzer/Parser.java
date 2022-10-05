@@ -16,12 +16,11 @@ public class Parser {
     }
 
     private void parseBlock()
-    {
+    {// I think this should be how we make a function
         accept( DECLARE );
         parseDeclarations();
         accept( DO );
         parseStatements();
-        //accept( OD );
     }
 
 
@@ -36,8 +35,15 @@ public class Parser {
     private void parseOneDeclaration()
     {
         switch( currentTerminal.kind ) {
-            case VAR:
-                accept( VAR );
+            case INTEGER:
+                accept( INTEGERLITERAL );
+                accept(DECLARE);
+                accept( IDENTIFIER );
+                accept( SEMICOLON );
+                break;
+            case BOOLEAN:
+                accept( BOOLEANLITERAL );
+                accept(DECLARE);
                 accept( IDENTIFIER );
                 accept( SEMICOLON );
                 break;
@@ -83,56 +89,56 @@ public class Parser {
                 currentTerminal.kind == LEFTPARAN ||
                 currentTerminal.kind == IF ||
                 currentTerminal.kind == WHILE ||
-                currentTerminal.kind == SAY )
+                currentTerminal.kind == INPUT  ||
+                currentTerminal.kind == OUTPUT )
             parseOneStatement();
     }
 
 
     private void parseOneStatement()
-    {
-        switch( currentTerminal.kind ) {
-            case IDENTIFIER:
-            case INTEGERLITERAL:
-            case OPERATOR:
-            case LEFTPARAN:
-                parseExpression();
-                accept( SEMICOLON );
-                break;
+    {switch( currentTerminal.kind ) {
+        case IDENTIFIER:
+        case INTEGERLITERAL:
+        case OPERATOR:
+        case LEFTPARAN:
+            parseExpression();
+            accept( SEMICOLON );
+            break;
 
-            case IF:
-                accept( IF );
-                parseExpression();
-                accept( THEN );
+        case IF:
+            accept( IF );
+            parseExpression();
+            parseStatements();
+            if( currentTerminal.kind == ELSE ) {
+                accept( ELSE );
                 parseStatements();
+            }
 
-                if( currentTerminal.kind == ELSE ) {
-                    accept( ELSE );
-                    parseStatements();
-                }
+            break;
 
-                accept( IF );
-                accept( SEMICOLON );
-                break;
+        case WHILE:
+            accept( WHILE );
+            parseExpression();
+            accept( DO );
+            parseStatements();
+            accept( SEMICOLON );
+            break;
 
-            case WHILE:
-                accept( WHILE );
-                parseExpression();
-                accept( DO );
-                parseStatements();
-                //accept( OD );
-                accept( SEMICOLON );
-                break;
+        case INPUT:
+            accept( INPUT );
+            parseExpression();
+            accept( SEMICOLON );
+            break;
+        case OUTPUT:
+            accept( OUTPUT );
+            parseExpression();
+            accept( SEMICOLON );
+            break;
 
-            case SAY:
-                accept( SAY );
-                parseExpression();
-                accept( SEMICOLON );
-                break;
-
-            default:
-                System.out.println( "Error in statement" );
-                break;
-        }
+        default:
+            System.out.println( "Error in statement" );
+            break;
+    }
     }
 
 
@@ -168,6 +174,9 @@ public class Parser {
 
             case INTEGERLITERAL:
                 accept( INTEGERLITERAL );
+                break;
+            case BOOLEANLITERAL:
+                accept( BOOLEANLITERAL );
                 break;
 
             case OPERATOR:

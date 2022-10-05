@@ -3,6 +3,7 @@ package syntatic.analyzer;
 public enum TokenKind {
     IDENTIFIER,
     INTEGERLITERAL,
+    BOOLEANLITERAL,
     OPERATOR,
     DO( "do" ),
     ELSE( "el" ),
@@ -11,7 +12,7 @@ public enum TokenKind {
     RETURN( "ret" ),
     SAY( "say" ),
     THEN( "then" ),
-    VAR( "var" ),
+
     WHILE( "whl" ),
     VOID("voi"),
     INTEGER("i"),
