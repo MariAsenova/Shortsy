@@ -33,19 +33,12 @@ public class Scanner {
 
     private void scanSeparator() {
         switch (currentChar) {
-            case '#':
+            case '#' -> {
                 takeIt();
                 while (currentChar != SourceFile.EOL && currentChar != SourceFile.EOT) takeIt();
-
                 if (currentChar == SourceFile.EOL) takeIt();
-                break;
-
-            case ' ':
-            case '\n':
-            case '\r':
-            case '\t':
-                takeIt();
-                break;
+            }
+            case ' ', '\n', '\r', '\t' -> takeIt();
         }
     }
 
@@ -142,7 +135,7 @@ public class Scanner {
                 currentChar == ' ' )
             scanSeparator();
 
-        currentSpelling = new StringBuffer( "" );
+        currentSpelling = new StringBuffer();
         TokenKind kind = scanToken();
 
         return new Token( kind, new String( currentSpelling ) );

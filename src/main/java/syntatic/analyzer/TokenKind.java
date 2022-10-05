@@ -37,12 +37,12 @@ public enum TokenKind {
     private String spelling = null;
 
 
-    private TokenKind()
+    TokenKind()
     {
     }
 
 
-    private TokenKind( String spelling )
+    TokenKind( String spelling )
     {
         this.spelling = spelling;
     }

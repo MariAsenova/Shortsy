@@ -19,7 +19,7 @@ public class ScannerTest {
     private static final String EXAMPLES_DIR = "C:/Users/Pál Jámbor/Desktop/example.txt";
     private static final Logger logger = LogManager.getLogger(ScannerTest.class);
 
-    public static void main( String args[] )
+    public static void main(String[] args)
     {
         System.setProperty("log4j.configurationFile", "src/main/resources/log4j2.properties");
         logger.debug(String.format("Testing log with log4j from: %s", Scanner.class.getName()));
