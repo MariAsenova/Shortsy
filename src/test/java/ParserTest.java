@@ -1,6 +1,6 @@
-import syntatic.analyzer.Parser;
-import syntatic.analyzer.Scanner;
-import syntatic.analyzer.SourceFile;
+import syntatic.analysis.Parser;
+import lexical.analysis.Scanner;
+import lexical.analysis.SourceFile;
 
 import javax.swing.*;
 

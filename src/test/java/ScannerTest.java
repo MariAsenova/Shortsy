@@ -1,9 +1,9 @@
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import syntatic.analyzer.Scanner;
-import syntatic.analyzer.SourceFile;
-import syntatic.analyzer.Token;
-import syntatic.analyzer.TokenKind;
+import lexical.analysis.Scanner;
+import lexical.analysis.SourceFile;
+import lexical.analysis.Token;
+import lexical.analysis.TokenKind;
 
 import javax.swing.*;
 

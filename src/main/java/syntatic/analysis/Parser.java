@@ -1,9 +1,12 @@
-package syntatic.analyzer;
+package syntatic.analysis;
 
+import lexical.analysis.Scanner;
+import lexical.analysis.Token;
+import lexical.analysis.TokenKind;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static syntatic.analyzer.TokenKind.*;
+import static lexical.analysis.TokenKind.*;
 
 public class Parser {
     private final Scanner scanner;
