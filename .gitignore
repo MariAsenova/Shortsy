@@ -4,6 +4,7 @@ out/
 !**/src/test/**/out/
 .idea
 .build
+.logs
 ### Eclipse ###
 .apt_generated
 .classpath
