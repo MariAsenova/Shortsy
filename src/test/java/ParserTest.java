@@ -1,23 +1,38 @@
-import syntatic.analysis.Parser;
 import lexical.analysis.Scanner;
 import lexical.analysis.SourceFile;
+import org.junit.jupiter.api.Test;
+import syntatic.analysis.Parser;
 
-import javax.swing.*;
-
-
+/**
+ * guidance to UnitTest naming convention and structure
+ * https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices
+ */
 public class ParserTest {
-    private static final String EXAMPLES_DIR = "c:\\usr\\undervisning\\CMC\\IntLang\\examples";
+    private String pathSourceTest;
 
-    public static void main(String args[]) {
-        JFileChooser fc = new JFileChooser(EXAMPLES_DIR);
+    // add BeforeEach and AfterEach
 
+    @Test
+    public void assignmentOf_BooleanAndInteger_BooleanAndIntegerValuesAssignedToVariables() {
+        // arrange
+        pathSourceTest = "src/test/resources/correct-assignment-of-bool-and-int.txt";
+        SourceFile sourceFile = new SourceFile(pathSourceTest);
+        Scanner scanner = new Scanner(sourceFile);
+        Parser parser = new Parser(scanner);
+        // act
+        parser.parseProgram();
+        // assert
+    }
 
-        if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            SourceFile in = new SourceFile(fc.getSelectedFile().getAbsolutePath());
-            Scanner s = new Scanner(in);
-            Parser p = new Parser(s);
-
-            p.parseProgram();
-        }
+    @Test
+    public void callOfFunction_WithOneArgument_ResultsInCorrectFunctionCall() {
+        // arrange
+        pathSourceTest = "src/test/resources/correct-call-of-func-with-argument.txt";
+        SourceFile sourceFile = new SourceFile(pathSourceTest);
+        Scanner scanner = new Scanner(sourceFile);
+        Parser parser = new Parser(scanner);
+        // act
+        parser.parseProgram();
+        // assert
     }
 }
