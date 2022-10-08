@@ -1,6 +1,4 @@
-package syntatic.analyzer;
-
-import static syntatic.analyzer.TokenKind.*;
+package lexical.analysis;
 
 public class Token {
 
@@ -13,7 +11,7 @@ public class Token {
         this.kind = kind;
         this.spelling = spelling;
 
-        if( kind == IDENTIFIER )
+        if( kind == TokenKind.IDENTIFIER )
             for( TokenKind tk: KEYWORDS )
                 if( spelling.equals( tk.getSpelling() ) ) {
                     this.kind = tk;
@@ -24,7 +22,7 @@ public class Token {
 
     public boolean isAssignOperator()
     {
-        if( kind == OPERATOR )
+        if( kind == TokenKind.OPERATOR )
             return containsOperator( spelling, ASSIGNOPS );
         else
             return false;
@@ -32,7 +30,7 @@ public class Token {
 
     public boolean isAddOperator()
     {
-        if( kind == OPERATOR )
+        if( kind == TokenKind.OPERATOR )
             return containsOperator( spelling, ADDOPS );
         else
             return false;
@@ -40,7 +38,7 @@ public class Token {
 
     public boolean isMulOperator()
     {
-        if( kind == OPERATOR )
+        if( kind == TokenKind.OPERATOR )
             return containsOperator( spelling, MULOPS );
         else
             return false;
@@ -56,7 +54,7 @@ public class Token {
         return false;
     }
 
-    private static final TokenKind[] KEYWORDS = { DECLARE, DO, ELSE,  FUNC, IF,  RETURN, SAY, THEN, VAR, WHILE,VOID,INTEGER,BOOLEAN,INPUT,OUTPUT,ASSIGNMENT_OPERATOR, COMMA, SEMICOLON, LEFTPARAN, RIGHTPARAN, RIGHTBRACES, LEFTBRACES, INTEGERLITERAL};
+    private static final TokenKind[] KEYWORDS = { TokenKind.DECLARE, TokenKind.DO, TokenKind.ELSE,  TokenKind.FUNC, TokenKind.IF,  TokenKind.RETURN, TokenKind.SAY, TokenKind.THEN, TokenKind.WHILE, TokenKind.VOID, TokenKind.INTEGER, TokenKind.BOOLEAN, TokenKind.INPUT, TokenKind.OUTPUT, TokenKind.ASSIGNMENT_OPERATOR, TokenKind.COMMA, TokenKind.SEMICOLON, TokenKind.LEFT_PARAN, TokenKind.RIGHTPARAN, TokenKind.RIGHTBRACES, TokenKind.LEFTBRACES, TokenKind.INTEGER_LITERAL, TokenKind.BOOLEANLITERAL};
 
 
     private static final String[] ASSIGNOPS =

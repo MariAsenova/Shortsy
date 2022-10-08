@@ -1,0 +1,5 @@
+out(234234325);
+i> input;
+input = in();
+
+out(input);

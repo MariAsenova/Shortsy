@@ -1,0 +1,4 @@
+b> isNumber;
+i> counter;
+isNumber = t;
+counter = 2;

@@ -1,4 +1,4 @@
-package syntatic.analyzer;
+package lexical.analysis;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

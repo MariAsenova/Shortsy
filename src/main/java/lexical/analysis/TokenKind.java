@@ -1,8 +1,9 @@
-package syntatic.analyzer;
+package lexical.analysis;
 
 public enum TokenKind {
     IDENTIFIER,
-    INTEGERLITERAL,
+    INTEGER_LITERAL,
+    BOOLEANLITERAL,
     OPERATOR,
     DO( "do" ),
     ELSE( "el" ),
@@ -11,7 +12,7 @@ public enum TokenKind {
     RETURN( "ret" ),
     SAY( "say" ),
     THEN( "then" ),
-    VAR( "var" ),
+
     WHILE( "whl" ),
     VOID("voi"),
     INTEGER("i"),
@@ -23,7 +24,7 @@ public enum TokenKind {
 
     COMMA( "," ),
     SEMICOLON( ";" ),
-    LEFTPARAN( "(" ),
+    LEFT_PARAN( "(" ),
     RIGHTPARAN( ")" ),
     RIGHTBRACES("{"),
     LEFTBRACES("}"),
@@ -37,12 +38,12 @@ public enum TokenKind {
     private String spelling = null;
 
 
-    private TokenKind()
+    TokenKind()
     {
     }
 
 
-    private TokenKind( String spelling )
+    TokenKind( String spelling )
     {
         this.spelling = spelling;
     }
