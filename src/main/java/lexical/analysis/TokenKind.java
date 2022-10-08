@@ -2,7 +2,7 @@ package lexical.analysis;
 
 public enum TokenKind {
     IDENTIFIER,
-    INTEGERLITERAL,
+    INTEGER_LITERAL,
     BOOLEANLITERAL,
     OPERATOR,
     DO( "do" ),
@@ -24,7 +24,7 @@ public enum TokenKind {
 
     COMMA( "," ),
     SEMICOLON( ";" ),
-    LEFTPARAN( "(" ),
+    LEFT_PARAN( "(" ),
     RIGHTPARAN( ")" ),
     RIGHTBRACES("{"),
     LEFTBRACES("}"),

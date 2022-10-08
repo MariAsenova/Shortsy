@@ -97,7 +97,7 @@ public class Scanner {
 
             case '(':
                 takeIt();
-                return TokenKind.LEFTPARAN;
+                return TokenKind.LEFT_PARAN;
 
             case ')':
                 takeIt();

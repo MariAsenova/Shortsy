@@ -1,0 +1,4 @@
+i> compare = 2;
+while (compare == 2) do {
+   out(3);
+}

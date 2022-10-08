@@ -1,0 +1,6 @@
+if (isNumber) do {
+    out(t);
+}
+el{
+    out(f);
+}

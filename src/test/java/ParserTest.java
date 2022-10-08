@@ -17,7 +17,7 @@ public class ParserTest {
             Scanner s = new Scanner(in);
             Parser p = new Parser(s);
 
-            p.ParseProgram();
+            p.parseProgram();
         }
     }
 }
