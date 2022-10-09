@@ -112,7 +112,7 @@ public class Scanner {
                 return TokenKind.RIGHT_BRACE;
             case '>':
                 takeIt();
-                return TokenKind.DECLARE;
+                return TokenKind.DECLARE_VAR_TYPE;
             case '=':
                 takeIt();
                 return TokenKind.ASSIGNMENT_OPERATOR;

@@ -34,7 +34,7 @@ public class Parser {
      * Check if declaration of a block is valid
      */
     private void parseBlock() {
-        accept(DECLARE);
+        accept(DECLARE_VAR_TYPE);
         parseDeclarations();
         accept(DO);
         parseStatements();
@@ -52,13 +52,13 @@ public class Parser {
         switch (currentTerminal.kind) {
             case INTEGER:
                 accept(INTEGER_LITERAL);
-                accept(DECLARE);
+                accept(DECLARE_VAR_TYPE);
                 accept(IDENTIFIER);
                 accept(SEMICOLON);
                 break;
             case BOOLEAN:
                 accept(BOOLEAN_LITERAL);
-                accept(DECLARE);
+                accept(DECLARE_VAR_TYPE);
                 accept(IDENTIFIER);
                 accept(SEMICOLON);
                 break;

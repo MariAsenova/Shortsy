@@ -1,6 +1,7 @@
 package lexical.analysis;
 
 public enum TokenKind {
+    DECLARE("go"),
     IDENTIFIER,
     INTEGER_LITERAL,
     BOOLEAN_LITERAL,
@@ -19,7 +20,7 @@ public enum TokenKind {
     BOOLEAN("b"),
     INPUT("in"),
     OUTPUT("out"),
-    DECLARE(">"),
+    DECLARE_VAR_TYPE(">"),
     ASSIGNMENT_OPERATOR("="),
 
     COMMA(","),
