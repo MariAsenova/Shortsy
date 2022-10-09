@@ -57,7 +57,7 @@ public class Parser {
                 accept(SEMICOLON);
                 break;
             case BOOLEAN:
-                accept(BOOLEANLITERAL);
+                accept(BOOLEAN_LITERAL);
                 accept(DECLARE);
                 accept(IDENTIFIER);
                 accept(SEMICOLON);
@@ -66,12 +66,12 @@ public class Parser {
             case FUNC:
                 accept(FUNC);
                 accept(IDENTIFIER);
-                accept(LEFT_PARAN);
+                accept(LEFT_PARAM);
 
                 if (currentTerminal.kind == IDENTIFIER)
                     parseIdList();
 
-                accept(RIGHTPARAN);
+                accept(RIGHT_PARAM);
                 parseBlock();
                 accept(RETURN);
                 parseExpression();
@@ -97,7 +97,7 @@ public class Parser {
         while (currentTerminal.kind == IDENTIFIER ||
                 currentTerminal.kind == OPERATOR ||
                 currentTerminal.kind == INTEGER_LITERAL ||
-                currentTerminal.kind == LEFT_PARAN ||
+                currentTerminal.kind == LEFT_PARAM ||
                 currentTerminal.kind == IF ||
                 currentTerminal.kind == WHILE ||
                 currentTerminal.kind == INPUT ||
@@ -110,7 +110,7 @@ public class Parser {
             case IDENTIFIER:
             case INTEGER_LITERAL:
             case OPERATOR:
-            case LEFT_PARAN:
+            case LEFT_PARAM:
                 parseExpression();
                 accept(SEMICOLON);
                 break;
@@ -164,25 +164,25 @@ public class Parser {
             case IDENTIFIER:
                 accept(IDENTIFIER);
 
-                if (currentTerminal.kind == LEFT_PARAN) {
-                    accept(LEFT_PARAN);
+                if (currentTerminal.kind == LEFT_PARAM) {
+                    accept(LEFT_PARAM);
 
                     if (currentTerminal.kind == IDENTIFIER ||
                             currentTerminal.kind == INTEGER_LITERAL ||
                             currentTerminal.kind == OPERATOR ||
-                            currentTerminal.kind == LEFT_PARAN)
+                            currentTerminal.kind == LEFT_PARAM)
                         parseExpressionList();
 
 
-                    accept(RIGHTPARAN);
+                    accept(RIGHT_PARAM);
                 }
                 break;
 
             case INTEGER_LITERAL:
                 accept(INTEGER_LITERAL);
                 break;
-            case BOOLEANLITERAL:
-                accept(BOOLEANLITERAL);
+            case BOOLEAN_LITERAL:
+                accept(BOOLEAN_LITERAL);
                 break;
 
             case OPERATOR:
@@ -190,10 +190,10 @@ public class Parser {
                 parsePrimary();
                 break;
 
-            case LEFT_PARAN:
-                accept(LEFT_PARAN);
+            case LEFT_PARAM:
+                accept(LEFT_PARAM);
                 parseExpression();
-                accept(RIGHTPARAN);
+                accept(RIGHT_PARAM);
                 break;
 
             default:

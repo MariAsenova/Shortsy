@@ -97,19 +97,19 @@ public class Scanner {
 
             case '(':
                 takeIt();
-                return TokenKind.LEFT_PARAN;
+                return TokenKind.LEFT_PARAM;
 
             case ')':
                 takeIt();
-                return TokenKind.RIGHTPARAN;
+                return TokenKind.RIGHT_PARAM;
 
             case '{':
                 takeIt();
-                return TokenKind.LEFTBRACES;
+                return TokenKind.LEFT_BRACE;
 
             case '}':
                 takeIt();
-                return TokenKind.RIGHTBRACES;
+                return TokenKind.RIGHT_BRACE;
             case '>':
                 takeIt();
                 return TokenKind.DECLARE;

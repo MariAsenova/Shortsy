@@ -1,10 +1,13 @@
-b> isNumber;
-isNumber= t;
+go
+{
+    b> isNumber;
+    isNumber= t;
 
-func printNum(i> int){
-if t do{
-     out(t);
+    func printNum(i> int){
+    if t do{
+        out(t);
+    }
+    el{
+        out(int);
+        }}
 }
-el{
-out(int);
-}}

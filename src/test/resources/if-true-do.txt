@@ -1,3 +1,6 @@
-if (isNumber) do {
-    out(t);
+go
+{
+    if (isNumber) do {
+        out(t);
+    }
 }

@@ -3,17 +3,17 @@ package lexical.analysis;
 public enum TokenKind {
     IDENTIFIER,
     INTEGER_LITERAL,
-    BOOLEANLITERAL,
+    BOOLEAN_LITERAL,
     OPERATOR,
-    DO( "do" ),
-    ELSE( "el" ),
-    FUNC( "func" ),
-    IF( "if" ),
-    RETURN( "ret" ),
-    SAY( "say" ),
-    THEN( "then" ),
+    DO("do"),
+    ELSE("el"),
+    FUNC("func"),
+    IF("if"),
+    RETURN("ret"),
+    SAY("say"),
+    THEN("then"),
 
-    WHILE( "whl" ),
+    WHILE("whl"),
     VOID("voi"),
     INTEGER("i"),
     BOOLEAN("b"),
@@ -22,12 +22,12 @@ public enum TokenKind {
     DECLARE(">"),
     ASSIGNMENT_OPERATOR("="),
 
-    COMMA( "," ),
-    SEMICOLON( ";" ),
-    LEFT_PARAN( "(" ),
-    RIGHTPARAN( ")" ),
-    RIGHTBRACES("{"),
-    LEFTBRACES("}"),
+    COMMA(","),
+    SEMICOLON(";"),
+    LEFT_PARAM("("),
+    RIGHT_PARAM(")"),
+    RIGHT_BRACE("{"),
+    LEFT_BRACE("}"),
 
 
     EOT,
@@ -38,19 +38,16 @@ public enum TokenKind {
     private String spelling = null;
 
 
-    TokenKind()
-    {
+    TokenKind() {
     }
 
 
-    TokenKind( String spelling )
-    {
+    TokenKind(String spelling) {
         this.spelling = spelling;
     }
 
 
-    public String getSpelling()
-    {
+    public String getSpelling() {
         return spelling;
     }
 }

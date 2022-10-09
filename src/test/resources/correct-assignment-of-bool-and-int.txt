@@ -1,4 +1,7 @@
-b> isNumber;
-i> counter;
-isNumber = t;
-counter = 2;
+go
+{
+    b> isNumber;
+    i> counter;
+    isNumber = t;
+    counter = 2;
+}
