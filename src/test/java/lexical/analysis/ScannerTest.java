@@ -17,12 +17,22 @@ public class ScannerTest {
     @Test
     public void scanAssignmentOf_BooleanAndIntegerVariable_VariablesSuccessfullyInstantiated() {
         Scanner scanner = arrange(PathToTestFilesConstants.ASSIGN_BOOL_AND_INT);
-        Token t = scanner.scan();
-        while (t.kind != TokenKind.EOT) {
-            logger.info(String.format("[%s] [%s]", t.kind, t.spelling));
-            t = scanner.scan();
+        Token token = scanner.scan();
+        while (token.kind != TokenKind.EOT) {
+            logger.info(String.format("[%s] [%s]", token.kind, token.spelling));
+            token = scanner.scan();
         }
         // assert with exception
+    }
+
+    @Test
+    public void scanCallOf_FuncWithTwoArguments_SuccessfullyCalledFunc() {
+        Scanner scanner = arrange(PathToTestFilesConstants.CALL_FUNC_WITH_ARG);
+        Token token = scanner.scan();
+        while (token.kind != TokenKind.EOT) {
+            logger.info(String.format("[%s] [%s]", token.kind, token.spelling));
+            token = scanner.scan();
+        }
     }
 
     private Scanner arrange(String sourceTestFile) {
