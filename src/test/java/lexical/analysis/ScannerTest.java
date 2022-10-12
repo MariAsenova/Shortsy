@@ -1,9 +1,7 @@
+package lexical.analysis;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import lexical.analysis.Scanner;
-import lexical.analysis.SourceFile;
-import lexical.analysis.Token;
-import lexical.analysis.TokenKind;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import test.utils.constants.PathToTestFilesConstants;

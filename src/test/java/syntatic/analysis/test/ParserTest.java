@@ -1,3 +1,5 @@
+package syntatic.analysis.test;
+
 import lexical.analysis.Scanner;
 import lexical.analysis.SourceFile;
 import org.junit.jupiter.api.Test;

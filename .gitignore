@@ -6,6 +6,7 @@ out/
 .build
 .logs
 .gradle
+.gradle/
 ### Eclipse ###
 .apt_generated
 .classpath
@@ -16,6 +17,7 @@ out/
 .sts4-cache
 bin/
 build/
+build
 logs
 !**/src/main/**/bin/
 !**/src/test/**/bin/
