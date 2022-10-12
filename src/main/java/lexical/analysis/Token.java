@@ -54,7 +54,7 @@ public class Token {
         return false;
     }
 
-    private static final TokenKind[] KEYWORDS = { TokenKind.DECLARE_VAR_TYPE, TokenKind.DO, TokenKind.ELSE,  TokenKind.FUNC, TokenKind.IF,  TokenKind.RETURN, TokenKind.SAY, TokenKind.THEN, TokenKind.WHILE, TokenKind.VOID, TokenKind.INTEGER, TokenKind.BOOLEAN, TokenKind.INPUT, TokenKind.OUTPUT, TokenKind.ASSIGNMENT_OPERATOR, TokenKind.COMMA, TokenKind.SEMICOLON, TokenKind.LEFT_PARAM, TokenKind.RIGHT_PARAM, TokenKind.LEFT_BRACE, TokenKind.RIGHT_BRACE, TokenKind.INTEGER_LITERAL, TokenKind.BOOLEAN_LITERAL};
+    private static final TokenKind[] KEYWORDS = { TokenKind.DECLARE, TokenKind.DECLARE_VAR_TYPE, TokenKind.DO, TokenKind.ELSE,  TokenKind.FUNC, TokenKind.IF,  TokenKind.RETURN, TokenKind.SAY, TokenKind.THEN, TokenKind.WHILE, TokenKind.VOID, TokenKind.INTEGER, TokenKind.BOOLEAN, TokenKind.INPUT, TokenKind.OUTPUT, TokenKind.ASSIGNMENT_OPERATOR, TokenKind.COMMA, TokenKind.SEMICOLON, TokenKind.LEFT_PARAM, TokenKind.RIGHT_PARAM, TokenKind.LEFT_BRACE, TokenKind.RIGHT_BRACE, TokenKind.INTEGER_LITERAL, TokenKind.BOOLEAN_LITERAL};
 
 
     private static final String[] ASSIGNOPS =

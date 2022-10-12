@@ -27,8 +27,9 @@ public class Scanner {
     private boolean isDigit(char c) {
         return (c >= '0' && c <= '9');
     }
-    private boolean isBoolean(char c){
-        return(c=='t'||c=='f');
+
+    private boolean isBoolean(char c) {
+        return (c == 't' || c == 'f');
     }
 
     private void scanSeparator() {
@@ -42,32 +43,15 @@ public class Scanner {
         }
     }
 
-    /**
-     * Checks if an int or bool has been declared
-     *
-     * @param curCharacter  i for int or b for bool
-     * @param nextCharacter > as identifier char
-     * @return whether is a type of int or bool
-     */
-    private boolean isIdentifier(char curCharacter, char nextCharacter) {
-        Character boolChar = 'b';
-        Character intChar = 'i';
-        Character currentChar = curCharacter;
-        Character nextChar = nextCharacter;
-
-        return ((currentChar.equals(boolChar) && nextChar.equals('>')) || (currentChar.equals(intChar) && nextChar.equals('>')));
-    }
-
     private TokenKind scanToken() {
-        if(isBoolean(currentChar)){
+        if (isBoolean(currentChar)) {
             takeIt();
             while (isBoolean(currentChar)) takeIt();
 
             return TokenKind.BOOLEAN;
-        }
-        else if( isLetter( currentChar ) ) {
+        } else if (isLetter(currentChar)) {
             takeIt();
-            while( isLetter( currentChar ) || isDigit( currentChar ) )
+            while (isLetter(currentChar) || isDigit(currentChar))
                 takeIt();
 
             return TokenKind.IDENTIFIER;
@@ -127,17 +111,15 @@ public class Scanner {
     }
 
 
-
-    public Token scan()
-    {
-        while( currentChar == '#' || currentChar == '\n' ||
+    public Token scan() {
+        while (currentChar == '#' || currentChar == '\n' ||
                 currentChar == '\r' || currentChar == '\t' ||
-                currentChar == ' ' )
+                currentChar == ' ')
             scanSeparator();
 
         currentSpelling = new StringBuffer();
         TokenKind kind = scanToken();
 
-        return new Token( kind, new String( currentSpelling ) );
+        return new Token(kind, new String(currentSpelling));
     }
 }
