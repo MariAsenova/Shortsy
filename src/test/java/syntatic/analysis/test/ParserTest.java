@@ -10,32 +10,27 @@ import test.utils.constants.PathToTestFilesConstants;
  * guidance to UnitTest naming convention and structure
  * https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices
  */
-public class ParserTest {
-    private String pathSourceTest;
 
-    // add BeforeEach and AfterEach
+//TODO add rainy scenarios of failing unit test to assure the right exceptions are thrown
+public class ParserTest {
 
     @Test
     public void assignmentOf_BooleanAndInteger_BooleanAndIntegerValuesAssignedToVariables() {
-        // arrange
-        pathSourceTest = PathToTestFilesConstants.ASSIGN_BOOL_AND_INT;
-        SourceFile sourceFile = new SourceFile(pathSourceTest);
-        Scanner scanner = new Scanner(sourceFile);
-        Parser parser = new Parser(scanner);
-        // act
+        Parser parser = arrange(PathToTestFilesConstants.ASSIGN_BOOL_AND_INT);
         parser.parseProgram();
-        // assert
+        // assert with exception
     }
 
     @Test
     public void callOfFunction_WithOneArgument_ResultsInCorrectFunctionCall() {
-        // arrange
-        pathSourceTest = "src/test/resources/correct-call-of-func-with-argument.txt";
+        Parser parser = arrange(PathToTestFilesConstants.CALL_FUNC_WITH_ARG);
+        parser.parseProgram();
+        // assert with exception
+    }
+
+    private Parser arrange(String pathSourceTest) {
         SourceFile sourceFile = new SourceFile(pathSourceTest);
         Scanner scanner = new Scanner(sourceFile);
-        Parser parser = new Parser(scanner);
-        // act
-        parser.parseProgram();
-        // assert
+        return new Parser(scanner);
     }
 }

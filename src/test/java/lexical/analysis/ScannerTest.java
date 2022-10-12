@@ -8,7 +8,6 @@ import test.utils.constants.PathToTestFilesConstants;
 
 public class ScannerTest {
     private static final Logger logger = LogManager.getLogger(ScannerTest.class);
-    private String pathSourceTest;
 
     @Before
     public void setup() {
@@ -17,17 +16,17 @@ public class ScannerTest {
 
     @Test
     public void scanAssignmentOf_BooleanAndIntegerVariable_VariablesSuccessfullyInstantiated() {
-        pathSourceTest = PathToTestFilesConstants.ASSIGN_BOOL_AND_INT;
-        Scanner scanner = arrange();
+        Scanner scanner = arrange(PathToTestFilesConstants.ASSIGN_BOOL_AND_INT);
         Token t = scanner.scan();
         while (t.kind != TokenKind.EOT) {
             logger.info(String.format("[%s] [%s]", t.kind, t.spelling));
             t = scanner.scan();
         }
+        // assert with exception
     }
 
-    private Scanner arrange() {
-        SourceFile in = new SourceFile(pathSourceTest);
+    private Scanner arrange(String sourceTestFile) {
+        SourceFile in = new SourceFile(sourceTestFile);
         return new Scanner(in);
     }
 }
