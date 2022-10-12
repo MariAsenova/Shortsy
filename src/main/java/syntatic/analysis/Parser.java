@@ -35,9 +35,10 @@ public class Parser {
      */
     private void parseBlock() {
         accept(DECLARE);
+        accept(LEFT_BRACE);
         parseDeclarations();
-        accept(DO);
         parseStatements();
+        accept(RIGHT_BRACE);
     }
 
 
@@ -51,14 +52,14 @@ public class Parser {
     private void parseOneDeclaration() {
         switch (currentTerminal.kind) {
             case INTEGER:
-                accept(INTEGER_LITERAL);
-                accept(DECLARE);
+                accept(INTEGER);
+                accept(DECLARE_VAR_TYPE);
                 accept(IDENTIFIER);
                 accept(SEMICOLON);
                 break;
             case BOOLEAN:
-                accept(BOOLEANLITERAL);
-                accept(DECLARE);
+                accept(BOOLEAN);
+                accept(DECLARE_VAR_TYPE);
                 accept(IDENTIFIER);
                 accept(SEMICOLON);
                 break;
@@ -66,12 +67,12 @@ public class Parser {
             case FUNC:
                 accept(FUNC);
                 accept(IDENTIFIER);
-                accept(LEFT_PARAN);
+                accept(LEFT_PARAM);
 
                 if (currentTerminal.kind == IDENTIFIER)
                     parseIdList();
 
-                accept(RIGHTPARAN);
+                accept(RIGHT_PARAM);
                 parseBlock();
                 accept(RETURN);
                 parseExpression();
@@ -97,7 +98,8 @@ public class Parser {
         while (currentTerminal.kind == IDENTIFIER ||
                 currentTerminal.kind == OPERATOR ||
                 currentTerminal.kind == INTEGER_LITERAL ||
-                currentTerminal.kind == LEFT_PARAN ||
+                currentTerminal.kind == BOOLEAN_LITERAL ||
+                currentTerminal.kind == LEFT_PARAM ||
                 currentTerminal.kind == IF ||
                 currentTerminal.kind == WHILE ||
                 currentTerminal.kind == INPUT ||
@@ -109,8 +111,9 @@ public class Parser {
         switch (currentTerminal.kind) {
             case IDENTIFIER:
             case INTEGER_LITERAL:
+            case BOOLEAN_LITERAL:
             case OPERATOR:
-            case LEFT_PARAN:
+            case LEFT_PARAM:
                 parseExpression();
                 accept(SEMICOLON);
                 break;
@@ -164,25 +167,26 @@ public class Parser {
             case IDENTIFIER:
                 accept(IDENTIFIER);
 
-                if (currentTerminal.kind == LEFT_PARAN) {
-                    accept(LEFT_PARAN);
+                if (currentTerminal.kind == LEFT_PARAM) {
+                    accept(LEFT_PARAM);
 
                     if (currentTerminal.kind == IDENTIFIER ||
                             currentTerminal.kind == INTEGER_LITERAL ||
+                            currentTerminal.kind == BOOLEAN_LITERAL ||
                             currentTerminal.kind == OPERATOR ||
-                            currentTerminal.kind == LEFT_PARAN)
+                            currentTerminal.kind == LEFT_PARAM)
                         parseExpressionList();
 
 
-                    accept(RIGHTPARAN);
+                    accept(RIGHT_PARAM);
                 }
                 break;
 
             case INTEGER_LITERAL:
                 accept(INTEGER_LITERAL);
                 break;
-            case BOOLEANLITERAL:
-                accept(BOOLEANLITERAL);
+            case BOOLEAN_LITERAL:
+                accept(BOOLEAN_LITERAL);
                 break;
 
             case OPERATOR:
@@ -190,10 +194,10 @@ public class Parser {
                 parsePrimary();
                 break;
 
-            case LEFT_PARAN:
-                accept(LEFT_PARAN);
+            case LEFT_PARAM:
+                accept(LEFT_PARAM);
                 parseExpression();
-                accept(RIGHTPARAN);
+                accept(RIGHT_PARAM);
                 break;
 
             default:

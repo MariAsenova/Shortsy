@@ -1,5 +1,8 @@
-i> starter;
-starter = 1;
-func Add() {
-starter = starter + 1;
+go
+{
+    i> starter;
+    starter = 1;
+    func Add() {
+    starter = starter + 1;
+        }
 }
