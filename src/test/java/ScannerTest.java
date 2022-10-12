@@ -4,38 +4,32 @@ import lexical.analysis.Scanner;
 import lexical.analysis.SourceFile;
 import lexical.analysis.Token;
 import lexical.analysis.TokenKind;
-
-import javax.swing.*;
+import org.junit.Before;
+import org.junit.jupiter.api.Test;
+import test.utils.constants.PathToTestFilesConstants;
 
 public class ScannerTest {
-
-    // TODO make into a class with unit tests instead
-    // import .txt files for testing into C:\git\shortsy-compiler\src\test\resources instead of local machine
-    /**
-     * Example of how to use the logger
-     * 1) create a private field of type Logger initiated with the name of the class in which is used
-     * 2) Set the system property of log4j.configurationFile to point to the location where the log4j properties are defined
-     */
-    private static final String EXAMPLES_DIR = "C:/Users/Pál Jámbor/Desktop/example.txt";
     private static final Logger logger = LogManager.getLogger(ScannerTest.class);
+    private String pathSourceTest;
 
-    public static void main(String[] args)
-    {
+    @Before
+    public void setup() {
         System.setProperty("log4j.configurationFile", "src/main/resources/log4j2.properties");
-        logger.debug(String.format("Testing log with log4j from: %s", Scanner.class.getName()));
+    }
 
-        JFileChooser fc = new JFileChooser( EXAMPLES_DIR );
-
-        if( fc.showOpenDialog( null ) == JFileChooser.APPROVE_OPTION ) {
-            SourceFile in = new SourceFile( fc.getSelectedFile().getAbsolutePath() );
-            Scanner s = new Scanner( in );
-
-            Token t = s.scan();
-            while( t.kind != TokenKind.EOT ) {
-                System.out.println( t.kind + " " + t.spelling );
-
-                t = s.scan();
-            }
+    @Test
+    public void scanAssignmentOf_BooleanAndIntegerVariable_VariablesSuccessfullyInstantiated() {
+        pathSourceTest = PathToTestFilesConstants.ASSIGN_BOOL_AND_INT;
+        Scanner scanner = arrange();
+        Token t = scanner.scan();
+        while (t.kind != TokenKind.EOT) {
+            logger.info(String.format("[%s] [%s]", t.kind, t.spelling));
+            t = scanner.scan();
         }
+    }
+
+    private Scanner arrange() {
+        SourceFile in = new SourceFile(pathSourceTest);
+        return new Scanner(in);
     }
 }

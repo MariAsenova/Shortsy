@@ -5,6 +5,7 @@ out/
 .idea
 .build
 .logs
+.gradle
 ### Eclipse ###
 .apt_generated
 .classpath
@@ -15,6 +16,7 @@ out/
 .sts4-cache
 bin/
 build/
+logs
 !**/src/main/**/bin/
 !**/src/test/**/bin/
 

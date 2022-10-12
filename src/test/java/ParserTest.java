@@ -2,6 +2,7 @@ import lexical.analysis.Scanner;
 import lexical.analysis.SourceFile;
 import org.junit.jupiter.api.Test;
 import syntatic.analysis.Parser;
+import test.utils.constants.PathToTestFilesConstants;
 
 /**
  * guidance to UnitTest naming convention and structure
@@ -15,7 +16,7 @@ public class ParserTest {
     @Test
     public void assignmentOf_BooleanAndInteger_BooleanAndIntegerValuesAssignedToVariables() {
         // arrange
-        pathSourceTest = "src/test/resources/correct-assignment-of-bool-and-int.txt";
+        pathSourceTest = PathToTestFilesConstants.ASSIGN_BOOL_AND_INT;
         SourceFile sourceFile = new SourceFile(pathSourceTest);
         Scanner scanner = new Scanner(sourceFile);
         Parser parser = new Parser(scanner);

@@ -43,7 +43,7 @@ public class Scanner {
     }
 
     /**
-     * Checks if an int or bool has been declares
+     * Checks if an int or bool has been declared
      *
      * @param curCharacter  i for int or b for bool
      * @param nextCharacter > as identifier char
@@ -55,7 +55,7 @@ public class Scanner {
         Character currentChar = curCharacter;
         Character nextChar = nextCharacter;
 
-        return ((currentChar.equals(boolChar) && nextChar.equals('>'))|| (currentChar.equals(intChar) && nextChar.equals('>')));
+        return ((currentChar.equals(boolChar) && nextChar.equals('>')) || (currentChar.equals(intChar) && nextChar.equals('>')));
     }
 
     private TokenKind scanToken() {

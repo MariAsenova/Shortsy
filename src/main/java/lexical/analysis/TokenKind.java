@@ -27,9 +27,8 @@ public enum TokenKind {
     SEMICOLON(";"),
     LEFT_PARAM("("),
     RIGHT_PARAM(")"),
-    RIGHT_BRACE("{"),
-    LEFT_BRACE("}"),
-
+    LEFT_BRACE("{"),
+    RIGHT_BRACE("}"),
 
     EOT,
 
