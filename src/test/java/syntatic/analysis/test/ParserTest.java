@@ -8,7 +8,7 @@ import test.utils.constants.PathToTestFilesConstants;
 
 /**
  * guidance to UnitTest naming convention and structure
- * https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices
+ * <a href="https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices"></a>
  */
 
 //TODO add rainy scenarios of failing unit test to assure the right exceptions are thrown

@@ -35,8 +35,8 @@ public class Parser {
      */
     private void parseBlock() {
         accept(DECLARE);
-        parseDeclarations();
         accept(LEFT_BRACE);
+        parseDeclarations();
         parseStatements();
         accept(RIGHT_BRACE);
     }
@@ -98,6 +98,7 @@ public class Parser {
         while (currentTerminal.kind == IDENTIFIER ||
                 currentTerminal.kind == OPERATOR ||
                 currentTerminal.kind == INTEGER_LITERAL ||
+                currentTerminal.kind == BOOLEAN_LITERAL ||
                 currentTerminal.kind == LEFT_PARAM ||
                 currentTerminal.kind == IF ||
                 currentTerminal.kind == WHILE ||
@@ -110,6 +111,7 @@ public class Parser {
         switch (currentTerminal.kind) {
             case IDENTIFIER:
             case INTEGER_LITERAL:
+            case BOOLEAN_LITERAL:
             case OPERATOR:
             case LEFT_PARAM:
                 parseExpression();
@@ -170,6 +172,7 @@ public class Parser {
 
                     if (currentTerminal.kind == IDENTIFIER ||
                             currentTerminal.kind == INTEGER_LITERAL ||
+                            currentTerminal.kind == BOOLEAN_LITERAL ||
                             currentTerminal.kind == OPERATOR ||
                             currentTerminal.kind == LEFT_PARAM)
                         parseExpressionList();

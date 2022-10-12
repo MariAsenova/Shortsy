@@ -32,6 +32,31 @@ public class Scanner {
         return (c == 't' || c == 'f');
     }
 
+    /**
+     * Checks if an int or bool has been declares
+     *
+     * @param curCharacter  i for int or b for bool
+     * @param nextCharacter > as identifier char
+     * @return whether is a type of int or bool
+     */
+    private boolean isBooleanLiteral(char curCharacter, char nextCharacter) {
+        Character boolChar = 'b';
+        Character intChar = 'i';
+        Character currentChar = curCharacter;
+        Character nextChar = nextCharacter;
+
+        return ((currentChar.equals(boolChar) && nextChar.equals('>')) || (currentChar.equals(intChar) && nextChar.equals('>')));
+    }
+
+    private boolean isIntegerLiteral(char curCharacter, char nextCharacter) {
+        Character boolChar = 'b';
+        Character intChar = 'i';
+        Character currentChar = curCharacter;
+        Character nextChar = nextCharacter;
+
+        return ((currentChar.equals(boolChar) && nextChar.equals('>')) || (currentChar.equals(intChar) && nextChar.equals('>')));
+    }
+
     private void scanSeparator() {
         switch (currentChar) {
             case '#' -> {
@@ -46,21 +71,24 @@ public class Scanner {
     private TokenKind scanToken() {
         if (isBoolean(currentChar)) {
             takeIt();
-            while (isBoolean(currentChar)) takeIt();
+            while (isBoolean(currentChar)) {
+                takeIt();
+            }
 
             return TokenKind.BOOLEAN;
         } else if (isLetter(currentChar)) {
             takeIt();
-            while (isLetter(currentChar) || isDigit(currentChar))
+            while (isLetter(currentChar) || isDigit(currentChar)) {
                 takeIt();
+            }
 
             return TokenKind.IDENTIFIER;
         } else if (isDigit(currentChar)) {
             takeIt();
-            while (isDigit(currentChar)) takeIt();
-
+            while (isDigit(currentChar)) {
+                takeIt();
+            }
             return TokenKind.INTEGER;
-
         }
 
         switch (currentChar) {
@@ -112,9 +140,7 @@ public class Scanner {
 
 
     public Token scan() {
-        while (currentChar == '#' || currentChar == '\n' ||
-                currentChar == '\r' || currentChar == '\t' ||
-                currentChar == ' ')
+        while (currentChar == '#' || currentChar == '\n' || currentChar == '\r' || currentChar == '\t' || currentChar == ' ')
             scanSeparator();
 
         currentSpelling = new StringBuffer();
