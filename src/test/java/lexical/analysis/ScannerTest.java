@@ -35,6 +35,16 @@ public class ScannerTest {
         }
     }
 
+    @Test
+    public void scanDeclarationOf_FunctionWithoutArguments_SuccessfulCallOfFunction() {
+        Scanner scanner = arrange(PathToTestFilesConstants.DECLARATION_OF_FUNC);
+        Token token = scanner.scan();
+        while (token.kind != TokenKind.EOT) {
+            logger.info(String.format("[%s] [%s]", token.kind, token.spelling));
+            token = scanner.scan();
+        }
+    }
+
     private Scanner arrange(String sourceTestFile) {
         SourceFile in = new SourceFile(sourceTestFile);
         return new Scanner(in);
