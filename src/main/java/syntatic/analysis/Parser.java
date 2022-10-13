@@ -97,8 +97,8 @@ public class Parser {
     private void parseStatements() {
         while (currentTerminal.kind == IDENTIFIER ||
                 currentTerminal.kind == OPERATOR ||
-                currentTerminal.kind == INTEGER_LITERAL ||
-                currentTerminal.kind == BOOLEAN_LITERAL ||
+                currentTerminal.kind == INTEGER ||
+                currentTerminal.kind == BOOLEAN ||
                 currentTerminal.kind == LEFT_PARAM ||
                 currentTerminal.kind == IF ||
                 currentTerminal.kind == WHILE ||
@@ -110,11 +110,28 @@ public class Parser {
     private void parseOneStatement() {
         switch (currentTerminal.kind) {
             case IDENTIFIER:
-            case INTEGER_LITERAL:
-            case BOOLEAN_LITERAL:
+                parseExpression();
+                if (currentTerminal.kind == SEMICOLON) {
+                    accept(SEMICOLON);
+                    break;
+                } else if (currentTerminal.kind == ASSIGNMENT_OPERATOR) {
+                    accept(ASSIGNMENT_OPERATOR);
+                    if (currentTerminal.kind == BOOLEAN) {
+                        accept(BOOLEAN_LITERAL);
+                    } else if (currentTerminal.kind == INTEGER) {
+                        accept(INTEGER_LITERAL);
+                    }
+                }
             case OPERATOR:
             case LEFT_PARAM:
                 parseExpression();
+                accept(SEMICOLON);
+                break;
+            case INTEGER:
+            case BOOLEAN:
+                parseExpression();
+                accept(DECLARE_VAR_TYPE);
+                accept(IDENTIFIER);
                 accept(SEMICOLON);
                 break;
 
@@ -171,8 +188,8 @@ public class Parser {
                     accept(LEFT_PARAM);
 
                     if (currentTerminal.kind == IDENTIFIER ||
-                            currentTerminal.kind == INTEGER_LITERAL ||
-                            currentTerminal.kind == BOOLEAN_LITERAL ||
+                            currentTerminal.kind == INTEGER ||
+                            currentTerminal.kind == BOOLEAN ||
                             currentTerminal.kind == OPERATOR ||
                             currentTerminal.kind == LEFT_PARAM)
                         parseExpressionList();
@@ -182,11 +199,11 @@ public class Parser {
                 }
                 break;
 
-            case INTEGER_LITERAL:
-                accept(INTEGER_LITERAL);
+            case INTEGER:
+                accept(INTEGER);
                 break;
-            case BOOLEAN_LITERAL:
-                accept(BOOLEAN_LITERAL);
+            case BOOLEAN:
+                accept(BOOLEAN);
                 break;
 
             case OPERATOR:
@@ -218,6 +235,7 @@ public class Parser {
     /**
      * accept checks if the token given matches the token expected,
      * if not reports a syntactic error
+     *
      * @param expected token
      */
     private void accept(TokenKind expected) {

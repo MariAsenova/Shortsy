@@ -28,33 +28,20 @@ public class Scanner {
         return (c >= '0' && c <= '9');
     }
 
-    private boolean isBoolean(char c) {
+    private boolean isBooleanValue(char c) {
         return (c == 't' || c == 'f');
     }
 
-    /**
-     * Checks if an int or bool has been declares
-     *
-     * @param curCharacter  i for int or b for bool
-     * @param nextCharacter > as identifier char
-     * @return whether is a type of int or bool
-     */
-    private boolean isBooleanLiteral(char curCharacter, char nextCharacter) {
-        Character boolChar = 'b';
-        Character intChar = 'i';
-        Character currentChar = curCharacter;
-        Character nextChar = nextCharacter;
-
-        return ((currentChar.equals(boolChar) && nextChar.equals('>')) || (currentChar.equals(intChar) && nextChar.equals('>')));
+    private boolean isBoolean(char curCharacter) {
+        return curCharacter == 'b';
     }
 
-    private boolean isIntegerLiteral(char curCharacter, char nextCharacter) {
-        Character boolChar = 'b';
-        Character intChar = 'i';
-        Character currentChar = curCharacter;
-        Character nextChar = nextCharacter;
+    private boolean isInteger(char curCharacter) {
+        return curCharacter == 'i';
+    }
 
-        return ((currentChar.equals(boolChar) && nextChar.equals('>')) || (currentChar.equals(intChar) && nextChar.equals('>')));
+    private boolean isLessThanSign(char curCharacter) {
+        return curCharacter == '>';
     }
 
     private void scanSeparator() {
@@ -69,14 +56,22 @@ public class Scanner {
     }
 
     private TokenKind scanToken() {
-        if (isBoolean(currentChar)) {
+        if (isBooleanValue(currentChar)) {
             takeIt();
-            while (isBoolean(currentChar)) {
+            while (isBooleanValue(currentChar)) {
                 takeIt();
             }
 
-            return TokenKind.BOOLEAN;
+            return TokenKind.BOOLEAN_LITERAL;
         } else if (isLetter(currentChar)) {
+            if (isBoolean(currentChar)) {
+                takeIt();
+                return TokenKind.BOOLEAN;
+            }
+            if (isInteger(currentChar)) {
+                takeIt();
+                return TokenKind.INTEGER;
+            }
             takeIt();
             while (isLetter(currentChar) || isDigit(currentChar)) {
                 takeIt();
@@ -88,7 +83,7 @@ public class Scanner {
             while (isDigit(currentChar)) {
                 takeIt();
             }
-            return TokenKind.INTEGER;
+            return TokenKind.INTEGER_LITERAL;
         }
 
         switch (currentChar) {
