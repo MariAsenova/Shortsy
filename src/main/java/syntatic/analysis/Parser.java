@@ -1,5 +1,6 @@
 package syntatic.analysis;
 
+import exceptions.SyntaticException;
 import lexical.analysis.Scanner;
 import lexical.analysis.Token;
 import lexical.analysis.TokenKind;
@@ -24,16 +25,18 @@ public class Parser {
         currentTerminal = scanner.scan();
     }
 
-    public void parseProgram() {
+    public void parseProgram() throws SyntaticException {
         parseBlock();
-        if (currentTerminal.kind != EOT)
+        if (currentTerminal.kind != EOT) {
             logger.error("Syntax error: Tokens found after end of program");
+            throw new SyntaticException("Tokens found after the end of the program");
+        }
     }
 
     /**
      * Check if declaration of a block is valid
      */
-    private void parseBlock() {
+    private void parseBlock() throws SyntaticException {
         accept(DECLARE);
         accept(LEFT_BRACE);
         parseDeclarations();
@@ -42,14 +45,14 @@ public class Parser {
     }
 
 
-    private void parseDeclarations() {
+    private void parseDeclarations() throws SyntaticException {
         while (currentTerminal.kind == EOT ||
                 currentTerminal.kind == FUNC)
             parseOneDeclaration();
     }
 
 
-    private void parseOneDeclaration() {
+    private void parseOneDeclaration() throws SyntaticException {
         switch (currentTerminal.kind) {
             case INTEGER:
                 accept(INTEGER);
@@ -81,11 +84,11 @@ public class Parser {
 
             default:
                 logger.error("Syntax error: Variable or function expected");
-                break;
+                throw new SyntaticException("Variable or function expected when parsing single declaration");
         }
     }
 
-    private void parseIdList() {
+    private void parseIdList() throws SyntaticException {
         accept(IDENTIFIER);
 
         while (currentTerminal.kind == COMMA) {
@@ -94,11 +97,11 @@ public class Parser {
         }
     }
 
-    private void parseStatements() {
+    private void parseStatements() throws SyntaticException {
         while (currentTerminal.kind == IDENTIFIER ||
                 currentTerminal.kind == OPERATOR ||
-                currentTerminal.kind == INTEGER_LITERAL ||
-                currentTerminal.kind == BOOLEAN_LITERAL ||
+                currentTerminal.kind == INTEGER ||
+                currentTerminal.kind == BOOLEAN ||
                 currentTerminal.kind == LEFT_PARAM ||
                 currentTerminal.kind == IF ||
                 currentTerminal.kind == WHILE ||
@@ -107,14 +110,33 @@ public class Parser {
             parseOneStatement();
     }
 
-    private void parseOneStatement() {
+    private void parseOneStatement() throws SyntaticException {
         switch (currentTerminal.kind) {
             case IDENTIFIER:
-            case INTEGER_LITERAL:
-            case BOOLEAN_LITERAL:
+                parseExpression();
+                if (currentTerminal.kind == SEMICOLON) {
+                    accept(SEMICOLON);
+                    break;
+                } else if (currentTerminal.kind == ASSIGNMENT_OPERATOR) {
+                    accept(ASSIGNMENT_OPERATOR);
+                    if (currentTerminal.kind == BOOLEAN_LITERAL) {
+                        accept(BOOLEAN_LITERAL);
+                    } else if (currentTerminal.kind == INTEGER_LITERAL) {
+                        accept(INTEGER_LITERAL);
+                    }
+                    accept(SEMICOLON);
+                    break;
+                }
             case OPERATOR:
             case LEFT_PARAM:
                 parseExpression();
+                accept(SEMICOLON);
+                break;
+            case INTEGER:
+            case BOOLEAN:
+                parseExpression();
+                accept(DECLARE_VAR_TYPE);
+                accept(IDENTIFIER);
                 accept(SEMICOLON);
                 break;
 
@@ -150,11 +172,12 @@ public class Parser {
 
             default:
                 logger.error("Syntax error: Error found in statement");
-                break;
+                throw new SyntaticException(String.format("Error found in single statement: statement does not match syntax expected" +
+                        "Current terminal kind found [%s]", currentTerminal.kind.getSpelling()));
         }
     }
 
-    private void parseExpression() {
+    private void parseExpression() throws SyntaticException {
         parsePrimary();
         while (currentTerminal.kind == OPERATOR) {
             accept(OPERATOR);
@@ -162,7 +185,7 @@ public class Parser {
         }
     }
 
-    private void parsePrimary() {
+    private void parsePrimary() throws SyntaticException {
         switch (currentTerminal.kind) {
             case IDENTIFIER:
                 accept(IDENTIFIER);
@@ -171,8 +194,8 @@ public class Parser {
                     accept(LEFT_PARAM);
 
                     if (currentTerminal.kind == IDENTIFIER ||
-                            currentTerminal.kind == INTEGER_LITERAL ||
-                            currentTerminal.kind == BOOLEAN_LITERAL ||
+                            currentTerminal.kind == INTEGER ||
+                            currentTerminal.kind == BOOLEAN ||
                             currentTerminal.kind == OPERATOR ||
                             currentTerminal.kind == LEFT_PARAM)
                         parseExpressionList();
@@ -182,11 +205,11 @@ public class Parser {
                 }
                 break;
 
-            case INTEGER_LITERAL:
-                accept(INTEGER_LITERAL);
+            case INTEGER:
+                accept(INTEGER);
                 break;
-            case BOOLEAN_LITERAL:
-                accept(BOOLEAN_LITERAL);
+            case BOOLEAN:
+                accept(BOOLEAN);
                 break;
 
             case OPERATOR:
@@ -202,12 +225,13 @@ public class Parser {
 
             default:
                 logger.error("Syntax error: Error occurred in while primary parsing");
-                break;
+                throw new SyntaticException(String.format("Error in parsing main statement: statement does not match syntax expected" +
+                        "Current terminal kind found [%s]", currentTerminal.kind.getSpelling()));
         }
     }
 
 
-    private void parseExpressionList() {
+    private void parseExpressionList() throws SyntaticException {
         parseExpression();
         while (currentTerminal.kind == COMMA) {
             accept(COMMA);
@@ -218,13 +242,15 @@ public class Parser {
     /**
      * accept checks if the token given matches the token expected,
      * if not reports a syntactic error
+     *
      * @param expected token
      */
-    private void accept(TokenKind expected) {
+    private void accept(TokenKind expected) throws SyntaticException {
         if (currentTerminal.kind == expected) {
             currentTerminal = scanner.scan();
         } else {
             logger.error(String.format("Syntax error: Expected token of kind [%s]", expected));
+            throw new SyntaticException(String.format("Syntax error: Expected token of kind [%s]", expected));
         }
     }
 }
