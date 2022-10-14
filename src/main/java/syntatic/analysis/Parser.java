@@ -111,16 +111,19 @@ public class Parser {
         switch (currentTerminal.kind) {
             case IDENTIFIER:
                 parseExpression();
+                // TODO redo to cases instead
                 if (currentTerminal.kind == SEMICOLON) {
                     accept(SEMICOLON);
                     break;
                 } else if (currentTerminal.kind == ASSIGNMENT_OPERATOR) {
                     accept(ASSIGNMENT_OPERATOR);
-                    if (currentTerminal.kind == BOOLEAN) {
+                    if (currentTerminal.kind == BOOLEAN_LITERAL) {
                         accept(BOOLEAN_LITERAL);
-                    } else if (currentTerminal.kind == INTEGER) {
+                    } else if (currentTerminal.kind == INTEGER_LITERAL) {
                         accept(INTEGER_LITERAL);
                     }
+                    accept(SEMICOLON);
+                    break;
                 }
             case OPERATOR:
             case LEFT_PARAM:
