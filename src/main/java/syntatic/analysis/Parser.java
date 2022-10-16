@@ -137,6 +137,14 @@ public class Parser {
                 parseExpression();
                 accept(DECLARE_VAR_TYPE);
                 accept(IDENTIFIER);
+                if (currentTerminal.kind == ASSIGNMENT_OPERATOR) {
+                    accept(ASSIGNMENT_OPERATOR);
+                    if (currentTerminal.kind == BOOLEAN_LITERAL) {
+                        accept(BOOLEAN_LITERAL);
+                    } else if (currentTerminal.kind == INTEGER_LITERAL) {
+                        accept(INTEGER_LITERAL);
+                    }
+                }
                 accept(SEMICOLON);
                 break;
 
@@ -183,6 +191,10 @@ public class Parser {
             accept(OPERATOR);
             parsePrimary();
         }
+        while(currentTerminal.kind == COMMA){
+            accept(COMMA);
+            parsePrimary();
+        }
     }
 
     private void parsePrimary() throws SyntaticException {
@@ -222,7 +234,16 @@ public class Parser {
                 parseExpression();
                 accept(RIGHT_PARAM);
                 break;
-
+            case INTEGER_LITERAL:
+            case BOOLEAN_LITERAL:
+                if(currentTerminal.kind==INTEGER_LITERAL){
+                    accept(INTEGER_LITERAL);
+                    break;
+                }
+                else{
+                    accept(BOOLEAN_LITERAL);
+                    break;
+                }
             default:
                 logger.error("Syntax error: Error occurred in while primary parsing");
                 throw new SyntaticException(String.format("Error in parsing main statement: statement does not match syntax expected" +

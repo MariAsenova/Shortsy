@@ -1,5 +1,6 @@
 package syntatic.analysis.test;
 
+import exceptions.SyntaticException;
 import lexical.analysis.Scanner;
 import lexical.analysis.SourceFile;
 import org.junit.jupiter.api.Test;
@@ -15,14 +16,14 @@ import test.utils.constants.PathToTestFilesConstants;
 public class ParserTest {
 
     @Test
-    public void assignmentOf_BooleanAndInteger_BooleanAndIntegerValuesAssignedToVariables() {
+    public void assignmentOf_BooleanAndInteger_BooleanAndIntegerValuesAssignedToVariables() throws SyntaticException {
         Parser parser = arrange(PathToTestFilesConstants.ASSIGN_BOOL_AND_INT);
         parser.parseProgram();
         // assert with exception
     }
 
     @Test
-    public void callOfFunction_WithOneArgument_ResultsInCorrectFunctionCall() {
+    public void callOfFunction_WithOneArgument_ResultsInCorrectFunctionCall() throws SyntaticException {
         Parser parser = arrange(PathToTestFilesConstants.CALL_FUNC_WITH_ARG);
         parser.parseProgram();
         // assert with exception
