@@ -29,6 +29,12 @@ public class ParserTest {
         // assert with exception
     }
 
+    @Test
+    public void declareFunction() throws SyntaticException {
+        Parser parser = arrange(PathToTestFilesConstants.DECLARATION_OF_FUNC);
+        parser.parseProgram();
+        // assert with exception
+    }
     private Parser arrange(String pathSourceTest) {
         SourceFile sourceFile = new SourceFile(pathSourceTest);
         Scanner scanner = new Scanner(sourceFile);

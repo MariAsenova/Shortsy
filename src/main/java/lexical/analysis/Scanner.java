@@ -56,14 +56,7 @@ public class Scanner {
     }
 
     private TokenKind scanToken() {
-        if (isBooleanValue(currentChar)) {
-            takeIt();
-            while (isBooleanValue(currentChar)) {
-                takeIt();
-            }
-
-            return TokenKind.BOOLEAN_LITERAL;
-        } else if (isLetter(currentChar)) {
+         if (isLetter(currentChar)) {
             if (isBoolean(currentChar)) {
                 takeIt();
                 return TokenKind.BOOLEAN;
@@ -76,7 +69,12 @@ public class Scanner {
             while (isLetter(currentChar) || isDigit(currentChar)) {
                 takeIt();
             }
-
+            if(currentSpelling.equals("func")){
+                return TokenKind.FUNC;
+            }
+            if (currentSpelling.length()==1 && isBooleanValue(currentSpelling.charAt(0))) {
+                return TokenKind.BOOLEAN_LITERAL;
+            }
             return TokenKind.IDENTIFIER;
         } else if (isDigit(currentChar)) {
             takeIt();

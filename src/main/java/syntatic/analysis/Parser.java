@@ -54,37 +54,34 @@ public class Parser {
 
     private void parseOneDeclaration() throws SyntaticException {
         switch (currentTerminal.kind) {
-            case INTEGER:
+            case INTEGER -> {
                 accept(INTEGER);
                 accept(DECLARE_VAR_TYPE);
                 accept(IDENTIFIER);
                 accept(SEMICOLON);
-                break;
-            case BOOLEAN:
+            }
+            case BOOLEAN -> {
                 accept(BOOLEAN);
                 accept(DECLARE_VAR_TYPE);
                 accept(IDENTIFIER);
                 accept(SEMICOLON);
-                break;
-
-            case FUNC:
+            }
+            case FUNC -> {
                 accept(FUNC);
                 accept(IDENTIFIER);
                 accept(LEFT_PARAM);
-
                 if (currentTerminal.kind == IDENTIFIER)
                     parseIdList();
-
                 accept(RIGHT_PARAM);
                 parseBlock();
                 accept(RETURN);
                 parseExpression();
                 accept(SEMICOLON);
-                break;
-
-            default:
+            }
+            default -> {
                 logger.error("Syntax error: Variable or function expected");
                 throw new SyntaticException("Variable or function expected when parsing single declaration");
+            }
         }
     }
 
@@ -106,7 +103,8 @@ public class Parser {
                 currentTerminal.kind == IF ||
                 currentTerminal.kind == WHILE ||
                 currentTerminal.kind == INPUT ||
-                currentTerminal.kind == OUTPUT)
+                currentTerminal.kind == OUTPUT ||
+                currentTerminal.kind == FUNC)
             parseOneStatement();
     }
 
@@ -123,6 +121,14 @@ public class Parser {
                         accept(BOOLEAN_LITERAL);
                     } else if (currentTerminal.kind == INTEGER_LITERAL) {
                         accept(INTEGER_LITERAL);
+                    } else if (currentTerminal.kind == IDENTIFIER) {
+                        accept(IDENTIFIER);
+                        accept(OPERATOR);
+                        if (currentTerminal.kind == BOOLEAN_LITERAL) {
+                            accept(BOOLEAN_LITERAL);
+                        } else if (currentTerminal.kind == INTEGER_LITERAL) {
+                            accept(INTEGER_LITERAL);
+                        }
                     }
                     accept(SEMICOLON);
                     break;
@@ -137,13 +143,13 @@ public class Parser {
                 parseExpression();
                 accept(DECLARE_VAR_TYPE);
                 accept(IDENTIFIER);
-                if (currentTerminal.kind == ASSIGNMENT_OPERATOR) {
+                if(currentTerminal.kind==ASSIGNMENT_OPERATOR){
                     accept(ASSIGNMENT_OPERATOR);
+                }
                     if (currentTerminal.kind == BOOLEAN_LITERAL) {
                         accept(BOOLEAN_LITERAL);
                     } else if (currentTerminal.kind == INTEGER_LITERAL) {
                         accept(INTEGER_LITERAL);
-                    }
                 }
                 accept(SEMICOLON);
                 break;
@@ -177,11 +183,16 @@ public class Parser {
                 parseExpression();
                 accept(SEMICOLON);
                 break;
+            case FUNC:
+                accept(FUNC);
+                accept(IDENTIFIER);
 
+                parseExpression();
+                accept(LEFT_BRACE);
+                parseStatements();
+                accept(RIGHT_BRACE);
             default:
-                logger.error("Syntax error: Error found in statement");
-                throw new SyntaticException(String.format("Error found in single statement: statement does not match syntax expected" +
-                        "Current terminal kind found [%s]", currentTerminal.kind.getSpelling()));
+                break;
         }
     }
 
@@ -191,7 +202,8 @@ public class Parser {
             accept(OPERATOR);
             parsePrimary();
         }
-        while(currentTerminal.kind == COMMA){
+
+        while (currentTerminal.kind == COMMA) {
             accept(COMMA);
             parsePrimary();
         }
@@ -230,24 +242,26 @@ public class Parser {
                 break;
 
             case LEFT_PARAM:
+            case RIGHT_PARAM:
                 accept(LEFT_PARAM);
-                parseExpression();
+                if (currentTerminal.kind != RIGHT_PARAM) {
+                    parseExpression();
+                }
+
                 accept(RIGHT_PARAM);
                 break;
+
+
             case INTEGER_LITERAL:
             case BOOLEAN_LITERAL:
-                if(currentTerminal.kind==INTEGER_LITERAL){
+                if (currentTerminal.kind == INTEGER_LITERAL) {
                     accept(INTEGER_LITERAL);
-                    break;
-                }
-                else{
+                } else {
                     accept(BOOLEAN_LITERAL);
-                    break;
                 }
+                break;
             default:
-                logger.error("Syntax error: Error occurred in while primary parsing");
-                throw new SyntaticException(String.format("Error in parsing main statement: statement does not match syntax expected" +
-                        "Current terminal kind found [%s]", currentTerminal.kind.getSpelling()));
+                break;
         }
     }
 
