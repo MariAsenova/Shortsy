@@ -57,20 +57,39 @@ public class Scanner {
 
     private TokenKind scanToken() {
          if (isLetter(currentChar)) {
-            if (isBoolean(currentChar)) {
+            if(currentChar == 'b'){
                 takeIt();
-                return TokenKind.BOOLEAN;
+                if(currentChar=='>'){
+                    return TokenKind.BOOLEAN;
+                }
+                else{
+                    while (isLetter(currentChar) || isDigit(currentChar)) {
+                        takeIt();
+                    } return TokenKind.IDENTIFIER;
+                }
             }
-            if (isInteger(currentChar)) {
-                takeIt();
-                return TokenKind.INTEGER;
-            }
-            takeIt();
+             if(currentChar == 'i'){
+                 takeIt();
+                 if(currentChar=='>'){
+                     return TokenKind.INTEGER;
+                 }
+                 else{
+                     while (isLetter(currentChar) || isDigit(currentChar)) {
+                         takeIt();
+                     } return TokenKind.IDENTIFIER;
+                 }
+             }
+
+
+
             while (isLetter(currentChar) || isDigit(currentChar)) {
                 takeIt();
             }
-            if(currentSpelling.equals("func")){
+            if(currentSpelling.toString().equals("func")){
                 return TokenKind.FUNC;
+            }
+            if(currentSpelling.toString().equals("while")){
+                return TokenKind.WHILE;
             }
             if (currentSpelling.length()==1 && isBooleanValue(currentSpelling.charAt(0))) {
                 return TokenKind.BOOLEAN_LITERAL;
@@ -120,6 +139,10 @@ public class Scanner {
                 return TokenKind.DECLARE_VAR_TYPE;
             case '=':
                 takeIt();
+                if(currentChar == '='){
+                    takeIt();
+                    return TokenKind.EQUALS;
+                }
                 return TokenKind.ASSIGNMENT_OPERATOR;
 
             case SourceFile.EOT:

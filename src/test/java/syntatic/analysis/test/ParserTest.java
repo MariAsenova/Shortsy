@@ -35,6 +35,38 @@ public class ParserTest {
         parser.parseProgram();
         // assert with exception
     }
+    @Test
+    public void DECLARATION_OF_IF_ELSE() throws SyntaticException {
+        Parser parser = arrange(PathToTestFilesConstants.DECLARATION_OF_IF_ELSE);
+        parser.parseProgram();
+        // assert with exception
+    }
+    @Test
+    public void DECLARATION_OF_WHILE() throws SyntaticException {
+        Parser parser = arrange(PathToTestFilesConstants.DECLARATION_OF_WHILE);
+        parser.parseProgram();
+        // assert with exception
+    }
+    @Test
+    public void DECLARATION_OF_DO_WITH_IF_ELSE() throws SyntaticException {
+        Parser parser = arrange(PathToTestFilesConstants.DECLARATION_OF_DO_WITH_IF_ELSE);
+        parser.parseProgram();
+        // assert with exception
+    }
+    @Test
+    public void DECLARATION_OF_DO() throws SyntaticException {
+        Parser parser = arrange(PathToTestFilesConstants.DECLARATION_OF_DO);
+        parser.parseProgram();
+        // assert with exception
+    }
+    @Test
+    public void INPUT_OUTPUT() throws SyntaticException {
+        Parser parser = arrange(PathToTestFilesConstants.INPUT_OUTPUT);
+        parser.parseProgram();
+        // assert with exception
+    }
+
+
     private Parser arrange(String pathSourceTest) {
         SourceFile sourceFile = new SourceFile(pathSourceTest);
         Scanner scanner = new Scanner(sourceFile);
