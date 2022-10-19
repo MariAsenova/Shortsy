@@ -30,6 +30,7 @@ public enum TokenKind {
     LEFT_BRACE("{"),
     RIGHT_BRACE("}"),
 
+    EQUALS("=="),
     EOT,
 
     ERROR;

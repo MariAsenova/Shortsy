@@ -56,27 +56,44 @@ public class Scanner {
     }
 
     private TokenKind scanToken() {
-        if (isBooleanValue(currentChar)) {
-            takeIt();
-            while (isBooleanValue(currentChar)) {
+         if (isLetter(currentChar)) {
+            if(currentChar == 'b'){
                 takeIt();
+                if(currentChar=='>'){
+                    return TokenKind.BOOLEAN;
+                }
+                else{
+                    while (isLetter(currentChar) || isDigit(currentChar)) {
+                        takeIt();
+                    } return TokenKind.IDENTIFIER;
+                }
             }
+             if(currentChar == 'i'){
+                 takeIt();
+                 if(currentChar=='>'){
+                     return TokenKind.INTEGER;
+                 }
+                 else{
+                     while (isLetter(currentChar) || isDigit(currentChar)) {
+                         takeIt();
+                     } return TokenKind.IDENTIFIER;
+                 }
+             }
 
-            return TokenKind.BOOLEAN_LITERAL;
-        } else if (isLetter(currentChar)) {
-            if (isBoolean(currentChar)) {
-                takeIt();
-                return TokenKind.BOOLEAN;
-            }
-            if (isInteger(currentChar)) {
-                takeIt();
-                return TokenKind.INTEGER;
-            }
-            takeIt();
+
+
             while (isLetter(currentChar) || isDigit(currentChar)) {
                 takeIt();
             }
-
+            if(currentSpelling.toString().equals("func")){
+                return TokenKind.FUNC;
+            }
+            if(currentSpelling.toString().equals("while")){
+                return TokenKind.WHILE;
+            }
+            if (currentSpelling.length()==1 && isBooleanValue(currentSpelling.charAt(0))) {
+                return TokenKind.BOOLEAN_LITERAL;
+            }
             return TokenKind.IDENTIFIER;
         } else if (isDigit(currentChar)) {
             takeIt();
@@ -122,6 +139,10 @@ public class Scanner {
                 return TokenKind.DECLARE_VAR_TYPE;
             case '=':
                 takeIt();
+                if(currentChar == '='){
+                    takeIt();
+                    return TokenKind.EQUALS;
+                }
                 return TokenKind.ASSIGNMENT_OPERATOR;
 
             case SourceFile.EOT:

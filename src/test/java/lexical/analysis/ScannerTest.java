@@ -44,7 +44,51 @@ public class ScannerTest {
             token = scanner.scan();
         }
     }
-
+    @Test
+    public void DECLARATION_OF_IF_ELSE() {
+        Scanner scanner = arrange(PathToTestFilesConstants.DECLARATION_OF_IF_ELSE);
+        Token token = scanner.scan();
+        while (token.kind != TokenKind.EOT) {
+            logger.info(String.format("[%s] [%s]", token.kind, token.spelling));
+            token = scanner.scan();
+        }
+    }
+    @Test
+    public void DECLARATION_OF_WHILE() {
+        Scanner scanner = arrange(PathToTestFilesConstants.DECLARATION_OF_WHILE);
+        Token token = scanner.scan();
+        while (token.kind != TokenKind.EOT) {
+            logger.info(String.format("[%s] [%s]", token.kind, token.spelling));
+            token = scanner.scan();
+        }
+    }
+    @Test
+    public void DECLARATION_OF_DO_WITH_IF_ELSE() {
+        Scanner scanner = arrange(PathToTestFilesConstants.DECLARATION_OF_DO_WITH_IF_ELSE);
+        Token token = scanner.scan();
+        while (token.kind != TokenKind.EOT) {
+            logger.info(String.format("[%s] [%s]", token.kind, token.spelling));
+            token = scanner.scan();
+        }
+    }
+    @Test
+    public void DECLARATION_OF_DO() {
+        Scanner scanner = arrange(PathToTestFilesConstants.DECLARATION_OF_DO);
+        Token token = scanner.scan();
+        while (token.kind != TokenKind.EOT) {
+            logger.info(String.format("[%s] [%s]", token.kind, token.spelling));
+            token = scanner.scan();
+        }
+    }
+    @Test
+    public void INPUT_OUTPUT() {
+        Scanner scanner = arrange(PathToTestFilesConstants.INPUT_OUTPUT);
+        Token token = scanner.scan();
+        while (token.kind != TokenKind.EOT) {
+            logger.info(String.format("[%s] [%s]", token.kind, token.spelling));
+            token = scanner.scan();
+        }
+    }
     private Scanner arrange(String sourceTestFile) {
         SourceFile in = new SourceFile(sourceTestFile);
         return new Scanner(in);

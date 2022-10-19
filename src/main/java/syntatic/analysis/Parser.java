@@ -143,10 +143,15 @@ public class Parser {
             case IF:
                 accept(IF);
                 parseExpression();
+                accept(DO);
+                accept(LEFT_BRACE);
                 parseStatements();
+                accept(RIGHT_BRACE);
                 if (currentTerminal.kind == ELSE) {
                     accept(ELSE);
+                    accept(LEFT_BRACE);
                     parseStatements();
+                    accept(RIGHT_BRACE);
                 }
 
                 break;
@@ -155,8 +160,9 @@ public class Parser {
                 accept(WHILE);
                 parseExpression();
                 accept(DO);
+                accept(LEFT_BRACE);
                 parseStatements();
-                accept(SEMICOLON);
+                accept(RIGHT_BRACE);
                 break;
 
             case INPUT:
@@ -189,7 +195,16 @@ public class Parser {
         switch (currentTerminal.kind) {
             case IDENTIFIER:
                 accept(IDENTIFIER);
+                if(currentTerminal.kind == EQUALS){
+                    accept(EQUALS);
+                    if (currentTerminal.kind == IDENTIFIER ||
+                            currentTerminal.kind == INTEGER_LITERAL ||
+                            currentTerminal.kind == BOOLEAN_LITERAL )
+                        parseExpressionList();
 
+
+
+                }
                 if (currentTerminal.kind == LEFT_PARAM) {
                     accept(LEFT_PARAM);
 
