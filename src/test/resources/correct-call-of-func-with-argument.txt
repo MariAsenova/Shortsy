@@ -2,4 +2,4 @@ go
 {
     i> counter = 2;
     Add(counter, 2);
-    }
+}
