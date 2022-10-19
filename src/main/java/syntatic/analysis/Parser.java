@@ -46,9 +46,7 @@ public class Parser {
 
 
     private void parseDeclarations() throws SyntaticException {
-        while (currentTerminal.kind == EOT ||
-                currentTerminal.kind == FUNC)
-            parseOneDeclaration();
+        while (currentTerminal.kind == EOT || currentTerminal.kind == FUNC) parseOneDeclaration();
     }
 
 
@@ -58,31 +56,34 @@ public class Parser {
                 accept(INTEGER);
                 accept(DECLARE_VAR_TYPE);
                 accept(IDENTIFIER);
-                accept(SEMICOLON);
+
             }
             case BOOLEAN -> {
                 accept(BOOLEAN);
                 accept(DECLARE_VAR_TYPE);
                 accept(IDENTIFIER);
-                accept(SEMICOLON);
+
             }
             case FUNC -> {
                 accept(FUNC);
                 accept(IDENTIFIER);
                 accept(LEFT_PARAM);
-                if (currentTerminal.kind == IDENTIFIER)
-                    parseIdList();
+                if (currentTerminal.kind == IDENTIFIER) parseIdList();
                 accept(RIGHT_PARAM);
                 parseBlock();
                 accept(RETURN);
                 parseExpression();
-                accept(SEMICOLON);
+
             }
             default -> {
                 logger.error("Syntax error: Variable or function expected");
                 throw new SyntaticException("Variable or function expected when parsing single declaration");
             }
         }
+        if (currentTerminal.kind == RIGHT_PARAM) {
+            return;
+        }
+        accept(SEMICOLON);
     }
 
     private void parseIdList() throws SyntaticException {
@@ -95,21 +96,13 @@ public class Parser {
     }
 
     private void parseStatements() throws SyntaticException {
-        while (currentTerminal.kind == IDENTIFIER ||
-                currentTerminal.kind == OPERATOR ||
-                currentTerminal.kind == INTEGER ||
-                currentTerminal.kind == BOOLEAN ||
-                currentTerminal.kind == LEFT_PARAM ||
-                currentTerminal.kind == IF ||
-                currentTerminal.kind == WHILE ||
-                currentTerminal.kind == INPUT ||
-                currentTerminal.kind == OUTPUT ||
-                currentTerminal.kind == FUNC)
+        while (currentTerminal.kind == IDENTIFIER || currentTerminal.kind == OPERATOR || currentTerminal.kind == INTEGER || currentTerminal.kind == BOOLEAN || currentTerminal.kind == LEFT_PARAM || currentTerminal.kind == IF || currentTerminal.kind == WHILE || currentTerminal.kind == INPUT || currentTerminal.kind == OUTPUT || currentTerminal.kind == FUNC)
             parseOneStatement();
     }
 
     private void parseOneStatement() throws SyntaticException {
-        switch (currentTerminal.kind) {
+        switch (currentTerminal.kind)
+        {
             case IDENTIFIER:
                 parseExpression();
                 if (currentTerminal.kind == SEMICOLON) {
@@ -130,6 +123,10 @@ public class Parser {
                             accept(INTEGER_LITERAL);
                         }
                     }
+                    else if(currentTerminal.kind == INPUT){
+                        parseOneStatement();
+                        break;
+                    }
                     accept(SEMICOLON);
                     break;
                 }
@@ -143,13 +140,13 @@ public class Parser {
                 parseExpression();
                 accept(DECLARE_VAR_TYPE);
                 accept(IDENTIFIER);
-                if(currentTerminal.kind==ASSIGNMENT_OPERATOR){
+                if (currentTerminal.kind == ASSIGNMENT_OPERATOR) {
                     accept(ASSIGNMENT_OPERATOR);
                 }
-                    if (currentTerminal.kind == BOOLEAN_LITERAL) {
-                        accept(BOOLEAN_LITERAL);
-                    } else if (currentTerminal.kind == INTEGER_LITERAL) {
-                        accept(INTEGER_LITERAL);
+                if (currentTerminal.kind == BOOLEAN_LITERAL) {
+                    accept(BOOLEAN_LITERAL);
+                } else if (currentTerminal.kind == INTEGER_LITERAL) {
+                    accept(INTEGER_LITERAL);
                 }
                 accept(SEMICOLON);
                 break;
@@ -219,24 +216,17 @@ public class Parser {
         switch (currentTerminal.kind) {
             case IDENTIFIER:
                 accept(IDENTIFIER);
-                if(currentTerminal.kind == EQUALS){
+                if (currentTerminal.kind == EQUALS) {
                     accept(EQUALS);
-                    if (currentTerminal.kind == IDENTIFIER ||
-                            currentTerminal.kind == INTEGER_LITERAL ||
-                            currentTerminal.kind == BOOLEAN_LITERAL )
+                    if (currentTerminal.kind == IDENTIFIER || currentTerminal.kind == INTEGER_LITERAL || currentTerminal.kind == BOOLEAN_LITERAL)
                         parseExpressionList();
-
 
 
                 }
                 if (currentTerminal.kind == LEFT_PARAM) {
                     accept(LEFT_PARAM);
 
-                    if (currentTerminal.kind == IDENTIFIER ||
-                            currentTerminal.kind == INTEGER ||
-                            currentTerminal.kind == BOOLEAN ||
-                            currentTerminal.kind == OPERATOR ||
-                            currentTerminal.kind == LEFT_PARAM)
+                    if (currentTerminal.kind == IDENTIFIER || currentTerminal.kind == INTEGER || currentTerminal.kind == BOOLEAN || currentTerminal.kind == OPERATOR || currentTerminal.kind == LEFT_PARAM)
                         parseExpressionList();
 
 
@@ -259,10 +249,12 @@ public class Parser {
             case LEFT_PARAM:
             case RIGHT_PARAM:
                 accept(LEFT_PARAM);
-                if (currentTerminal.kind != RIGHT_PARAM) {
+                if (currentTerminal.kind != RIGHT_PARAM && currentTerminal.kind != INTEGER && currentTerminal.kind != BOOLEAN) {
                     parseExpression();
                 }
-
+                if (currentTerminal.kind == INTEGER || currentTerminal.kind == BOOLEAN) {
+                    parseOneDeclaration();
+                }
                 accept(RIGHT_PARAM);
                 break;
 
