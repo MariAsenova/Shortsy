@@ -53,8 +53,9 @@ public class Parser {
 
     private void parseOneDeclaration() throws SyntaticException {
         switch (currentTerminal.kind) {
-            case INTEGER -> {
-                accept(INTEGER);
+            case INTEGER, BOOLEAN -> {
+                if (currentTerminal.kind == INTEGER) {accept(INTEGER);}
+                if (currentTerminal.kind == BOOLEAN) {accept(BOOLEAN);}
                 accept(DECLARE_VAR_TYPE);
                 accept(IDENTIFIER);
                 if (currentTerminal.kind == ASSIGNMENT_OPERATOR) {
@@ -67,21 +68,7 @@ public class Parser {
                 }
 
             }
-            case BOOLEAN -> {
-                accept(BOOLEAN);
-                accept(DECLARE_VAR_TYPE);
-                accept(IDENTIFIER);
-                if (currentTerminal.kind == ASSIGNMENT_OPERATOR) {
-                    accept(ASSIGNMENT_OPERATOR);
-                }
-                if (currentTerminal.kind == BOOLEAN_LITERAL) {
-                    accept(BOOLEAN_LITERAL);
-                } else if (currentTerminal.kind == INTEGER_LITERAL) {
-                    accept(INTEGER_LITERAL);
-                }
 
-
-            }
             case FUNC -> {
                 accept(FUNC);
                 accept(IDENTIFIER);
@@ -121,13 +108,12 @@ public class Parser {
     }
     private void parseArguments() throws SyntaticException {
         accept(LEFT_PARAM);
-        switch (currentTerminal.kind){
-            case INTEGER:
-            case BOOLEAN:
+        switch (currentTerminal.kind) {
+            case INTEGER, BOOLEAN -> {
                 parseExpression();
                 accept(DECLARE_VAR_TYPE);
                 accept(IDENTIFIER);
-                break;
+            }
         }
         accept(RIGHT_PARAM);
     }

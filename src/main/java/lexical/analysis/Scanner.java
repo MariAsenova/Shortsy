@@ -1,7 +1,7 @@
 package lexical.analysis;
 
 public class Scanner {
-    private SourceFile sourceFile;
+    private final SourceFile sourceFile;
     private char currentChar;
     private StringBuffer currentSpelling;
 
