@@ -1,6 +1,9 @@
-if (isNumber) do {
-    out(t);
-}
-el{
-    out(f);
+go
+{
+    if (isNumber) do {
+        out(t);
+    }
+    el{
+        out(f);
+    }
 }

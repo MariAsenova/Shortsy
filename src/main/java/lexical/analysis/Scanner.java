@@ -27,8 +27,21 @@ public class Scanner {
     private boolean isDigit(char c) {
         return (c >= '0' && c <= '9');
     }
-    private boolean isBoolean(char c){
-        return(c=='t'||c=='f');
+
+    private boolean isBooleanValue(char c) {
+        return (c == 't' || c == 'f');
+    }
+
+    private boolean isBoolean(char curCharacter) {
+        return curCharacter == 'b';
+    }
+
+    private boolean isInteger(char curCharacter) {
+        return curCharacter == 'i';
+    }
+
+    private boolean isLessThanSign(char curCharacter) {
+        return curCharacter == '>';
     }
 
     private void scanSeparator() {
@@ -42,41 +55,52 @@ public class Scanner {
         }
     }
 
-    /**
-     * Checks if an int or bool has been declares
-     *
-     * @param curCharacter  i for int or b for bool
-     * @param nextCharacter > as identifier char
-     * @return whether is a type of int or bool
-     */
-    private boolean isIdentifier(char curCharacter, char nextCharacter) {
-        Character boolChar = 'b';
-        Character intChar = 'i';
-        Character currentChar = curCharacter;
-        Character nextChar = nextCharacter;
-
-        return ((currentChar.equals(boolChar) && nextChar.equals('>'))|| (currentChar.equals(intChar) && nextChar.equals('>')));
-    }
-
     private TokenKind scanToken() {
-        if(isBoolean(currentChar)){
-            takeIt();
-            while (isBoolean(currentChar)) takeIt();
-
-            return TokenKind.BOOLEAN;
-        }
-        else if( isLetter( currentChar ) ) {
-            takeIt();
-            while( isLetter( currentChar ) || isDigit( currentChar ) )
+         if (isLetter(currentChar)) {
+            if(currentChar == 'b'){
                 takeIt();
+                if(currentChar=='>'){
+                    return TokenKind.BOOLEAN;
+                }
+                else{
+                    while (isLetter(currentChar) || isDigit(currentChar)) {
+                        takeIt();
+                    } return TokenKind.IDENTIFIER;
+                }
+            }
+             if(currentChar == 'i'){
+                 takeIt();
+                 if(currentChar=='>'){
+                     return TokenKind.INTEGER;
+                 }
+                 else{
+                     while (isLetter(currentChar) || isDigit(currentChar)) {
+                         takeIt();
+                     } return TokenKind.IDENTIFIER;
+                 }
+             }
 
+
+
+            while (isLetter(currentChar) || isDigit(currentChar)) {
+                takeIt();
+            }
+            if(currentSpelling.toString().equals("func")){
+                return TokenKind.FUNC;
+            }
+            if(currentSpelling.toString().equals("while")){
+                return TokenKind.WHILE;
+            }
+            if (currentSpelling.length()==1 && isBooleanValue(currentSpelling.charAt(0))) {
+                return TokenKind.BOOLEAN_LITERAL;
+            }
             return TokenKind.IDENTIFIER;
         } else if (isDigit(currentChar)) {
             takeIt();
-            while (isDigit(currentChar)) takeIt();
-
-            return TokenKind.INTEGER;
-
+            while (isDigit(currentChar)) {
+                takeIt();
+            }
+            return TokenKind.INTEGER_LITERAL;
         }
 
         switch (currentChar) {
@@ -97,24 +121,28 @@ public class Scanner {
 
             case '(':
                 takeIt();
-                return TokenKind.LEFT_PARAN;
+                return TokenKind.LEFT_PARAM;
 
             case ')':
                 takeIt();
-                return TokenKind.RIGHTPARAN;
+                return TokenKind.RIGHT_PARAM;
 
             case '{':
                 takeIt();
-                return TokenKind.LEFTBRACES;
+                return TokenKind.LEFT_BRACE;
 
             case '}':
                 takeIt();
-                return TokenKind.RIGHTBRACES;
+                return TokenKind.RIGHT_BRACE;
             case '>':
                 takeIt();
-                return TokenKind.DECLARE;
+                return TokenKind.DECLARE_VAR_TYPE;
             case '=':
                 takeIt();
+                if(currentChar == '='){
+                    takeIt();
+                    return TokenKind.EQUALS;
+                }
                 return TokenKind.ASSIGNMENT_OPERATOR;
 
             case SourceFile.EOT:
@@ -127,17 +155,13 @@ public class Scanner {
     }
 
 
-
-    public Token scan()
-    {
-        while( currentChar == '#' || currentChar == '\n' ||
-                currentChar == '\r' || currentChar == '\t' ||
-                currentChar == ' ' )
+    public Token scan() {
+        while (currentChar == '#' || currentChar == '\n' || currentChar == '\r' || currentChar == '\t' || currentChar == ' ')
             scanSeparator();
 
         currentSpelling = new StringBuffer();
         TokenKind kind = scanToken();
 
-        return new Token( kind, new String( currentSpelling ) );
+        return new Token(kind, new String(currentSpelling));
     }
 }
